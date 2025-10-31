@@ -1,0 +1,1159 @@
+Uplift - Mobility Analysis for Post-Stroke Recovery with Exercise Tracking
+and Virtual-Assisted Therapy
+
+A Capstone Presented to the 
+Faculty of Information Technology Department  
+College of Information System and Technology Management 
+Pamantasan ng Lungsod ng Maynila
+
+
+In Partial Fulfillment of the Requirements for the Degree
+ Bachelor of Science in Information Technology
+
+
+
+By
+Mijares, Kenneth L.
+Sabar, Jonn Ian B.
+Tabañag, James Serafin L.
+
+
+Dr. Criselle J. Centeno 
+Coordinator Adviser
+
+Prof. Ariel Antwaun Rolando C. Sison                  
+Thesis Adviser
+
+
+
+December 2024
+
+ 
+
+APPROVAL SHEET
+The capstone hereto titled
+Uplift - Mobility Analysis for Post-Stroke Recovery With Exercise Tracking and Virtual-Assisted Therapy
+prepared and submitted by Kenneth L. Mijares, Jonn Ian B. Sabar, and James Serafin L. Tabañag, in partial fulfilment of the requirements for the degree of Bachelor of Science in Information Technology has been examined and is recommended for acceptance and approval for Oral Examination.
+
+Ariel Antwaun Rolando C. Sison
+Adviser 		                                 
+
+PANEL OF EXAMINERS
+Approved by the Committee on Oral Examination
+with a grade of _________ on _______.
+ 	_______________________                               	_______________________
+	Dr. Khatalyn E. Mata				     Jamillah S. Guialil
+		Panel Chair Chairman                                                    Panel Member                                                                
+Accepted and approved in partial fulfillment of the requirements for the degree of Bachelor of Science in Information Technology.
+
+ _______________________                               	_______________________
+    Ariel Antwaun Rolando C. Sison 		          Dr. Khatalyn E. Mata
+    	      Chairperson 				            Dean
+	        Information Technology                   	  College of Information Systems
+						            and Technology Management		          
+ABSTRACT
+Stroke remains a leading cause of long-term disability worldwide, significantly impairing individuals' mobility and quality of life. Traditional post-stroke rehabilitation methods, while effective, often face challenges related to consistency, patient adherence, and accessibility. This study investigates the impact of modern technological interventions, such as exercise tracking and virtual-assisted therapy, on enhancing post-stroke mobility recovery. 
+
+The primary objective was to develop the Uplift Mobility mobile application, which offers real-time data collection, personalized exercise programs, and immediate feedback. 
+Utilizing a sprint (scrum) methodology, key features of the application include facial recognition for secure user identification, mobility analysis using MediaPipe for optimizing exercise routines, and an emergency alert system employing audio notifications. The study successfully achieved its objectives, with the facial recognition system implemented using Dlib achieving 95.65% accuracy, and the pose estimation module using MediaPipe reaching 88.25% accuracy. 
+
+Despite challenges such as limited tool access and connectivity issues, the Uplift Mobility application demonstrated significant potential in supporting post-stroke rehabilitation by enhancing exercise adherence and improving patient outcomes. Future iterations, informed by user feedback, aim to further optimize the application's functionality and user experience.
+ 
+ACKNOWLEDGEMENTS
+would like to express our sincere gratitude to everyone who has contributed to the successful completion of this project. First and foremost, we would like to thank the panelists, Dr. Khatalyn E. Mata and Ms. Jamillah S. Guialil. We also extend our thanks to our coordinator, Ms. Criselle J. Centeno, and our adviser, Mr. Ariel Antwaun Rolando C. Sison, for their continuous guidance, support, and valuable insights throughout the development of this project. Their expertise and constructive feedback have greatly enhanced our understanding and approach.
+
+We are also deeply appreciative of the open-source contributors and developers of Dlib, particularly for their powerful facial recognition tools and models, including the shape_predictor_68_face_landmarks.dat and dlib face_recognition_resnet_model_v1.dat. Without these resources, the success of this project would not have been possible. Additionally, we would like to acknowledge our colleagues and friends for their encouragement and support. Their advice, discussions, and assistance have been instrumental in overcoming the challenges encountered during the implementation phase.
+Finally, we would like to thank our families and God for their constant support, advice, and belief in us, especially during the demanding times of the project.
+
+
+
+
+ 
+TABLE OF CONTENTS
+TITLE PAGE	i
+APPROVAL SHEET	ii
+ABSTRACT	iii
+ACKNOWLEDGEMENTS	iv
+TABLE OF CONTENTS	v 
+LIST OF FIGURES	vi 
+LIST OF TABLES	vii 
+INTRODUCTION	1
+1.1	Background of the Study	1
+1.2	Statement of the Problem	2
+1.3	Objectives	3
+	1.3.1    General Objective	3
+1.3.2	Specific Objectives	3
+1.4	Significance of the Study	4
+1.5	Scope and Limitations	4
+1.6	Definition of Terms	6
+REVIEW OF RELATED LITERATURE	8
+2.1	Comparative Analysis	8
+2.2	Related Literatures	13
+2.3	Related Studies	19
+METHODOLOGY	30
+3.1	Research Design	30
+3.2	System Architecture	41
+3.3	System Requirements	45
+3.4	Methods and Tools	46
+	3.4.1    Methods	46
+	3.4.2    Tools	53
+RESULT AND DISCUSSION	59
+4.1	Face Recognition Results: Identity Verification Status	59
+4.2	Pose Estimation and Feedbacks	61
+4.3	Alert: Alarm Notification	63
+CONCLUSION AND RECOMMENDATION	68
+          5.1    Conclusions 	68
+          5.2    Recommendations	69
+LIST OF REFERENCES	72
+APPENDIX A:  SOURCE CODE	76
+APPENDIX B: SYSTEM VALIDATION / TEST SCRIPT	82
+APPENDIX C:  BIONOTE	86
+
+
+ 
+LIST OF FIGURES  
+Figure 1: Agile Sprint Software Development Model…………………………….
+36
+Figure 2: Conceptual Framework of the System………………………………….
+38
+Figure 3: System Architecture…………………………………………………….
+39
+Figure 4: System’s Flowchart……………………………………………………..
+45
+Figure 5: Level 0 Data Flow Diagram…………………………………………….
+48
+Figure 6: Level 1 Data Flow Diagram……………………………………………..
+49
+Figure 7: Entity Relationship Diagram……………………………………………
+50
+Figure 8: Use Case Diagram………………………………………………………
+51
+Figure 9: Alarm Notification Trigger……………………………………………..
+71
+Figure 10: Login Page……………………………………………………………..
+72
+Figure 11: Homepage……………………………………………………………...
+73
+Figure 12: Exercise Page…………………………………………………………..
+74
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+ 
+LIST OF TABLES 
+Table 1: Overview of Object Detection Models…………………………………..
+8
+Table 2: Community Supports and Documentation for Mediapipe, PoseNet, and 	
+              VideoPose3D……………………………………………………………..
+9
+Table 3: Suitability for Different Cases …………………………………………..
+11
+Table 4: System Software Requirements…………………………………………..
+11
+Table 5: System Hardware Requirements ………………………………………..
+11
+Table 6: Face Datasets for Training………………………………………………
+57
+Table 7: Confusion Matrix, Test Results, and Accuracy’s Formula……………….	58
+Table 8: Face Datasets for Training………………………………….……………
+60
+Table 9: Test Results and Accuracy’s Formula……………………………………
+62
+Table 10: Face Recognition………………………………………….……………
+65
+Table 11: Face Recognition Metrics………………………………………………
+66
+Table 12:  Pose Estimation Feedback and Completion Summary…………………
+67
+Table 13: Pose Estimation Metrics………………………………………………...
+69
+	
+	
+	
+	
+
+
+
+CHAPTER ONE
+INTRODUCTION
+1.1	Background of the Study
+Stroke remains one of the foremost causes of long-term disability across the globe, significantly affecting individuals’ mobility and overall quality of life. Each year, the World Health Organization reports over 15 million new stroke cases. For those affected, regaining mobility is often a crucial focus, as it plays a central role in restoring independence and enhancing daily living.
+Conventional post-stroke rehabilitation typically combines physical therapy, occupational therapy, and medication. While these methods have proven effective, the journey to recovery is often prolonged and costly, necessitating a comprehensive and sustained approach to care. This traditional model, though beneficial, may not always address the full spectrum of individual needs and progress at the pace required.
+Recent advancements in technology have introduced novel approaches to enhance rehabilitation efforts. Innovations such as exercise tracking devices and virtual-assisted therapy have emerged as promising tools that could revolutionize post-stroke recovery. These technologies offer new ways to engage patients in their rehabilitation processes and potentially accelerate their recovery.
+Exercise tracking devices, which include wearable sensors and mobile applications, provide real-time monitoring of physical activity. This data allows for the development of personalized and adaptive rehabilitation programs, tailored to the specific needs and progress of everyone. Such precision could lead to more effective and efficient recovery pathways.This study aims to explore the impact of these modern technological interventions on post-stroke mobility recovery. By examining the effectiveness of exercise tracking and virtual-assisted therapy, the research seeks to offer valuable insights that could refine rehabilitation strategies and ultimately improve patient outcome.
+1.2	Statement of the Problem
+Stroke remains a significant health challenge, often leading to varying degrees of mobility impairments and functional limitations. While post-stroke rehabilitation is crucial for improving mobility and quality of life, traditional therapy methods can face challenges such as inconsistent therapy intensity, patient adherence issues, and accessibility constraints. 
+1. How can security protocols be implemented to prevent unauthorized access to post-stroke recovery data?
+2. How can mobility analysis be effectively utilized to enhance the exercise effectiveness and efficiency for post-stroke patients, ensuring that their rehabilitation programs are tailored to their individual needs and progress?
+3. How can surrounding people be informed that a patient is undergoing emergency situation during a virtual-assisted therapy session?
+ 
+1.3	Objectives of the Study
+1.3.1	General Objective
+The general objective of this study is to develop a mobile application designed to monitor and enhance the mobility of post-stroke patients through real-time data collection, personalized exercise programs, and real-time feedback, ultimately aiming to improve patient outcomes and support rehabilitation processes.
+1.3.2	Specific Objectives
+1. To implement facial recognition to ensure that the user is identified during exercise sessions, preventing unauthorized individuals from participating and minimizing the potential for cheating.
+2. To implement a mobility analysis to optimize exercise effectiveness and efficiency for users post-stroke using the mediapipe library and teachable machine.
+3. To develop an alarm system that notifies surrounding individuals of a patient’s emergency situation during a virtual-assisted therapy session using the audio player.
+
+ 
+1.4	Scope and Limitations
+1.4.1	Scope
+Develop a robust machine learning model capable of real-time mobility analysis of exercise form using camera streaming.
+Train the model on a diverse dataset encompassing various exercises and different levels of proficiency.
+Conduct thorough testing and validation to ensure the accuracy and reliability of the Mobility analysis system across different exercise types and user demographics.
+implementing a system that accurately verifies the identity of authorized participants in real-time.
+Evaluate the impact of the system on mobility exercise efficiency through real time feedback.
+To Develop an alarm notification that will notify the surrounding when the user’s in an emergency situation.
+To track the user’s progress and generate a comprehensive history report detailing the completion status of their activities or tasks.
+1.4.2	Limitations
+The effectiveness of the machine learning model may be limited by the quality and diversity of the training data. Variations in lighting, camera angles, camera placement, consistent visible face, and user movements can affect the accuracy of real-time form analysis. 
+The system won't be able to be paused during the patient's exercise, the system's ability to provide feedback may vary depending on individual user characteristics and the quality of the camera, including factors such as body type, movement style, camera resolution, background noise, lighting conditions, and the user’s familiarity with the exercises being performed. 
+The system depends on the user to end the exercises for them to be marked as completed. The system's performance may be influenced by technical constraints such as processing power, network bandwidth, and latency during real-time mobility analysis. The system will require an internet connection for the mobile application to function.
+1.5	Significance of the Study
+The significance of the study for “Uplift - Mobility Analysis for Post-Stroke Recovery With Exercise Tracking and Virtual-Assisted Therapy" lies in its potential to improve mobility training and improve overall user recovery in several impactful ways.
+The significant importance is due to its potential to address several critical issues in post-stroke rehabilitation. This study aims to leverage cutting-edge technology to overcome the limitations of traditional rehabilitation methods, thereby enhancing recovery outcomes.
+Overcoming Accessibility Constraints: Traditional in-person rehabilitation often presents challenges related to mobility issues, transportation, and financial constraints. The mobile application offers a flexible solution that can be used from the patient’s home, mitigating the impact of these barriers and making rehabilitation more accessible to a broader population.
+Reduction in Healthcare Costs: The study’s focus on enhancing the efficiency and effectiveness of rehabilitation through technology can lead to cost savings.
+The study is significant because it aims to enhance the work of physical therapists by providing advanced tools and insights. The study supports therapists in delivering more effective and personalized care, ultimately leading to better patient outcomes and more efficient rehabilitation processes.
+1.6	Operational Definition of Terms
+M.L (Machine Learning)
+
+
+
+
+
+	Machine learning is a field of artificial intelligence focused on teaching computers to learn from data and make decisions or predictions without explicit programming. It involves developing algorithms that improve automatically through experience and data analysis, enabling computers to perform tasks such as recognizing patterns, making recommendations, or predicting outcomes.
+Stroke
+
+
+	A stroke occurs when the blood supply to part of your brain is interrupted or reduced, preventing brain tissue from getting oxygen and nutrients. This brain tissue begins to die within minutes.
+PT Doctor	A physical therapist Doctor (PT) is a health specialist who evaluates and treats human body disorders.
+Mediapipe	MediaPipe is an open-source framework developed by Google that provides fast, customizable, and cross-platform solutions for building multimodal (e.g., vision,audio, and sensor) machine learning (ML) pipelines. 
+pose	In pose detection, "pose" refers to the configuration or arrangement of a person's body parts in a given frame. It typically involves identifying the positions and orientations of key body joints or landmarks (such as the head, shoulders, elbows, hips, knees, and ankles).
+Dlib	Dlib is a powerful C++ library with Python bindings that focuses on machine learning and computer vision tasks, particularly those involving face detection and face recognition.
+Real Time Feedback	An immediate, continuous input provided to users during an activity, enabling instant adjustments and performance improvement without delay.
+
+
+Real Time Feedback	An immediate, continuous input provided to users during an activity, enabling instant adjustments and performance improvement without delay.
+	 
+ 
+
+CHAPTER TWO
+REVIEW OF RELATED LITERATURE
+This section presents a comprehensive review of the existing literature relevant to the topic of study. It aims to synthesize key findings, identify gaps in knowledge, and explore various perspectives that have contributed to the current understanding of the subject. 
+2.1	Comparative Analysis
+This section conducts a comparative analysis of the key concepts, theories, or findings from multiple sources to identify similarities, differences, and underlying patterns. By systematically evaluating and contrasting various perspectives, this analysis aims to deepen the understanding of the topic, highlight critical insights, and reveal any contradictions or areas of agreement within the existing body of literature. The goal is to draw meaningful comparisons that contribute to the formulation of hypotheses or the advancement of the research study.
+2.1.1	Overview
+Feature	MediaPipe (2019)	PoseNet	VideoPose3D
+Real-time Performance	Excellent (Low Latency)	Excellent (Low Latency)	Poor (Not Real-time)
+Accuracy	High
+	Moderate
+	Very High
+Language support	Python, C++	Python	Python, C++
+Flexibility	High	Moderate	Low
+Ease of Use	High	Moderate	Low
+Abstraction Level	Low	Moderate	High
+Suitability for Mobile	High	High	Low
+Use Cases	Fitness, AR, therapy, real-time feedback	Basic applications, gesture recognition	Motion capture, biomechanics
+Table 1: Overview of Object Detection Models: Mediapipe, PoseNet, and VideoPose3D
+2.1.2	Performance and Flexibility
+The study by Singh and Upadhya (2023) evaluates and compares three prominent human pose estimation models: MediaPipe, PoseNet, and VideoPose3D. MediaPipe excels in real-time performance with moderate accuracy, making it ideal for mobile and edge applications. PoseNet, a lightweight model, is optimized for speed but sacrifices accuracy and landmark tracking compared to MediaPipe. In contrast, VideoPose3D provides the highest accuracy, specializing in detailed 3D pose estimation, but requires significantly higher computational resources, making it unsuitable for real-time applications.
+For mobility analysis and physical therapy, MediaPipe offers a good balance between speed and accuracy, allowing real-time feedback. VideoPose3D, though more accurate, is better suited for post-processing tasks due to its high computational cost. PoseNet is suitable for simpler, less detailed applications but may not provide the precision needed for specialized tasks like rehabilitation.
+The study suggests that for applications requiring real-time feedback (e.g., virtual therapy), MediaPipe is the preferred choice due to its efficiency and speed. VideoPose3D, while highly accurate, is better for detailed motion capture tasks where speed is less critical. PoseNet, while fast, is less suitable for tasks that demand high accuracy.
+2.1.3	Ease of Use and Documentation
+Features	MediaPipe (2019)	PoseNet	VideoPose3D
+Community Support	High - Large, active community, strong support.	Moderate - Good within TensorFlow ecosystem.	Low - Smaller community, limited resources.
+Scalability	High - Scalable across platforms, ideal for real-time applications.	Moderate - May struggle with real-time on low-end hardware.	Low - High computational cost, not suitable for large-scale use.
+Table 2: Community Supports and Documentation for Mediapipe, PoseNet, and VideoPose3D
+MediaPipe is the most user-friendly model among the three, offering straightforward integration, comprehensive documentation, and an active, supportive community. Its real-time capabilities make it a strong candidate for applications requiring fast, on-the-fly pose estimation. Although it offers moderate flexibility, its ease of use and scalability across platforms make it ideal for a wide range of applications.
+PoseNet, while moderately easy to use, is more complex than MediaPipe and requires familiarity with TensorFlow. Its documentation is good but less extensive for advanced use cases. PoseNet has a moderate community following and is most suitable for 2D pose estimation tasks, but it may not be as scalable or flexible for more complex applications.
+VideoPose3D is the most complex model, requiring a deeper understanding of 3D pose estimation. Its documentation is limited, and its smaller community means resources for troubleshooting and support are not as readily available. While it is the most flexible for 3D tasks, its scalability is constrained by its high computational demands, making it less suitable for large-scale or real-time applications.
+In summary, MediaPipe is the most accessible and scalable option, while PoseNet and VideoPose3D cater to more specialized needs, with VideoPose3D excelling in 3D pose estimation at the cost of increased complexity.
+Features	Mediapipe	PoseNet	VideoPose3D
+Beginners Rapid Prototyping	Highly Recommended	Recommended	Not Recommended
+Subtle Scale Detection	Not Recommended	Recommended	Highly Recommended
+High Performance Computing	Recommended	Not Recommended	Recommended
+Production Deployment	Highly Recommended	Not Recommended	Recommended
+2.1.4	Suitability for Different Cases
+Table 3: Suitability for Different Cases for Mediapipe, PoseNet, and VideoPose3D
+This comparative analysis examines the suitability of MediaPipe, PoseNet, and VideoPose3D for pose estimation and movement analysis tasks, with insights drawn from Singh & Upadhya (2023). MediaPipe is highly recommended for real-time applications due to its fast processing and low resource usage, making it ideal for scenarios like real-time feedback during exercises. However, it may not perform as well for subtle movements or complex poses. PoseNet provides a simpler, lightweight solution for basic 2D pose estimation, suitable for beginners or rapid prototyping, but it struggles with 3D pose accuracy or complex scenarios. VideoPose3D offers high accuracy for 3D pose estimation, making it excellent for advanced movement analysis, especially in fields like rehabilitation or stroke recovery. However, it requires more computational power and is not suitable for real-time applications due to slower processing.
+According to Agomuo Et al. (2024) “Mobile Application Based Optimized Out-Patient Emergency Request Model.”, the advancement of mobile technology has paved the way for innovative solutions in healthcare, particularly in emergency response and patient management. The article proposes a mobile application designed to optimize out-patient emergency requests, enhancing response times and patient outcomes. Mobile health (mHealth) applications refer to the use of mobile devices to support medical and public health practices. These applications have revolutionized healthcare delivery by providing remote monitoring, telemedicine services, and emergency response capabilities. Efficient emergency response systems are critical for reducing mortality and morbidity in acute medical situations. Optimization techniques in emergency response often involve algorithms that improve route planning, resource allocation, and response time. 
+The study by Okereke et al. (2024) “A Mobile Application Based Optimized Out-Patient Emergency Request Model.”, introduces a mobile application that optimizes out-patient emergency requests using advanced algorithms to improve response times and patient outcomes. The integration of real-time data and optimization techniques represents a significant advancement in mHealth technology. The literature supports the significant potential of mobile health applications and optimization techniques in enhancing emergency response systems. The article builds on this foundation by proposing an innovative solution for out-patient emergency requests, contributing to the ongoing advancement of mHealth technologies.
+According to Hameed, S Et al. (2024) “Facial Recognition-Based Attendance System”, the facial recognition technology has gained significant attention in recent years, particularly in the context of attendance systems. These systems leverage advanced algorithms to identify individuals based on their facial features, providing a promising alternative to traditional attendance methods such as roll calls or manual sign-ins. Studies by Kaur and Kumar (2019) indicate that these systems can streamline the attendance process, reduce administrative burdens, and improve accuracy compared to traditional methods. Implementing facial recognition systems in schools and universities can also enhance security by monitoring the presence of unauthorized individuals on campus (Anandan and Hameed, 2024). It shows that these systems can eliminate issues related to buddy punching and time theft, thus optimizing employee attendance tracking. 
+Additionally, the automation of attendance processes allows for real-time data analysis, contributing to better resource allocation and productivity management. Despite the advantages, the adoption of facial recognition technology in attendance systems raises several challenges and ethical concerns. Privacy issues are at the forefront, as the collection and storage of biometric data can lead to potential misuse. Facial recognition-based attendance systems represent a significant advancement in attendance tracking technologies. While they offer numerous benefits, including increased efficiency and security, it is essential to address the associated ethical and technical challenges. Future research should focus on improving algorithmic fairness, enhancing privacy protections, and exploring multi-modal approaches to ensure these systems are equitable and effective.
+According to Mohd Amer (2024) “Access Control Using Facial Recognition. Indian Scientific Journal of Research in Engineering and Management.”, Access control systems have evolved significantly with advancements in technology, particularly in biometrics. Among the various biometric modalities, facial recognition has emerged as a prominent method for ensuring secure access control. Facial recognition technology relies on the unique characteristics of an individual's face to verify identity. The process typically involves capturing an image of a face, extracting facial features, and comparing these features against a stored database. Deep learning techniques, particularly Convolutional Neural Networks (CNNs), have revolutionized the field. As noted by Mohd Amer (2024), these algorithms can learn intricate patterns and features from large datasets, facilitating real-time recognition capabilities. This advancement has made facial recognition a viable option for access control in various sectors, including banking, healthcare, and law enforcement. Several case studies demonstrate the effectiveness of facial recognition in access control. For instance, a pilot project at a major airport reported a 30% reduction in processing time for passenger verification when utilizing facial recognition technology. Facial recognition technology presents a promising solution for access control, offering enhanced security and efficiency. However, the challenges of accuracy, privacy, and ethical considerations must be addressed to ensure its responsible use. Continued research and development, coupled with appropriate regulatory frameworks, will be crucial in harnessing the full potential of facial recognition in access control applications.
+ 
+
+According to Hilman Zafri bin Mazlan. (2022), “FitAI: Home workout posture analysis using computer vision”, the study focuses on enhancing home-based workouts through Artificial Intelligence (AI) and computer vision technologies to improve posture and reduce injury risks. It addresses the common issue of improper posture during exercises due to lack of training or access to personal trainers. The project aims to develop a software application that uses a webcam to analyze workout postures in real-time, providing personalized feedback to users. Key technical components include keypoint detection, human pose estimation, and posture analysis methodologies, implemented using Rapid Application Development (RAD). Pretrained models like MediaPipe are used for keypoint detection, and various machine learning algorithms are evaluated for posture analysis, with a geometrical approach ultimately chosen for its accuracy. Motivated by the popularity of home workouts, especially during government-imposed movement restrictions, the study emphasizes the health benefits of exercise and the importance of proper posture to prevent musculoskeletal issues. It highlights challenges such as lighting affecting detection accuracy and the need for angle-specific posture analysis. Overall, the project aims to democratize effective workout guidance by leveraging AI and computer vision, providing accessible tools for safe and efficient home exercise routines.
+According to Ghadekar et al. (2021), “Real-Time Virtual Fitness Tracker and Exercise Posture Correction.” Highlighted the advancements that have made sedentary living more accessible but also introduced challenges during the pandemic, discouraging visits to gyms and maintaining fitness. Traditional gym instructors offer exercise programs aimed at reducing the risk of non-communicable diseases, yet their availability and cost pose barriers. To address this, the paper proposed a two-stage method for analyzing exercise posture effectively. The first stage employs a real-time body tracking model to capture 21 body coordinates. These coordinates are then processed through a newly developed statistical algorithm. This algorithm calculates exercise repetitions and provides recommendations for correcting posture errors. The system aims not only to regulate exercise counts but also to monitor and improve body posture, thereby supporting individuals in maintaining fitness and health.
+According to Xi Chen Et al. (2020, December 30), “Identification of invisible ischemic stroke in noncontrast CT based on novel two-stage convolutional neural network model”, the study presents a two-stage convolutional neural network (CNN) method for identifying ischemic stroke lesions in non-contrast computed tomography (ncCT) images.  The method integrates global and local image information using a U-Net for initial detection and a ResNet-based network for refining results. Tested on 277 cases from two hospitals, the approach achieved high identification accuracy (up to 91.89%) and precise localization (up to 83.02%). The CNN model effectively distinguishes stroke lesions from healthy tissue, demonstrating its robustness and clinical value for early stroke detection.
+The study by Conception Et al. (2023), ”The Sitting Posture Notification and Monitoring System: A sensor application”, it examines the impact of improper sitting posture, particularly among the youth, and explores technological interventions designed to address this issue. With the increasing amount of time spent sitting whether for work, study, or leisure poor posture has become a widespread concern. To mitigate its negative effects, the researchers developed a sitting posture notification and monitoring system, utilizing real-time image processing and force-sensitive resistors. This system effectively detects and corrects posture by capturing images of users and analyzing them through algorithms that estimate body model parameters. Through high-accuracy detection, individuals can receive immediate feedback to adjust their posture, promoting healthier sitting habits. Additionally, the study highlights the frame difference method, a widely used image analysis technique that compares consecutive video frames to identify motion. This approach has proven useful in sports applications, specifically in detecting and improving bowling posture using Kinect sensors. By integrating these technologies, the research demonstrates how posture monitoring systems can contribute to better ergonomic practices and prevent long-term health issues associated with prolonged sitting.
+According to Malangsa Et al. (2023), “A Deep Convolutional Neural Network for Skin Rashes Classification.”, The article presents a significant advancement in dermatological diagnostics using deep learning technologies. CNNs have become the cornerstone of image analysis in medical applications due to their ability to automatically learn hierarchical features from raw image data. Traditional methods rely heavily on dermatologist expertise and manual feature extraction, which can be time-consuming and subjective. The article by Oraño et al. (2023) utilized a large dataset of labeled skin rash images, applying data augmentation techniques to enhance model performance. This approach helps in mitigating overfitting and improving the model’s ability to generalize. 
+According to Oraño Et al. (2023), “A Deep Convolutional Neural Network for Skin Rashes Classification”, high accuracy and robustness in their model, which was validated using cross-validation techniques and benchmarked against existing state-of-the-art models. By leveraging large datasets and advanced deep learning techniques, this research contributes to improving diagnostic accuracy and efficiency in healthcare.
+according to Lucas et al. (2022), “Machine Learning on Stroke Risk Prediction Systems as Complementary Technology for Neurologists”, stroke is considered the second-leading cause of death all over the world. Due to the risks entangled with stroke, the need to identify its early signs and symptoms is vital in preventing it. Machine learning has increasingly been utilized to refine risk prediction systems across various medical disciplines.  Lucas et al. (2022) review several ML techniques employed in stroke risk prediction, including logistic regression, decision trees, and neural networks. The article highlights the potential of ensemble methods and deep learning algorithms to improve predictive performance. For instance, ensemble methods like random forests combine multiple models to enhance predictive accuracy, while deep learning approaches can analyze large volumes of unstructured data.
+According to Smith M Et al. (2021) “Ethical Application of Biometric Facial Recognition Technology”, the article explores the various ethical challenges associated with the increasing use of biometric technologies, particularly facial recognition. Their key focus is on privacy, consent, and data security, critical factors when deploying such technologies across different sectors. They highlight the need for regulatory frameworks and ethical guidelines to protect individuals from misuse of personal data while balancing the advantages of technology in enhancing service delivery. In your study on Mobility Analysis for Post-Stroke Recovery, these ethical considerations are highly applicable when incorporating biometric technologies into virtual-assisted therapy and exercise tracking. Biometric facial recognition can be potentially leveraged for user authentication, monitoring, or adapting exercises based on facial cues related to pain or exertion. Smith and Miller 2021 stated that ensuring that such applications respect patient privacy and obtain informed consent, especially since medical data is particularly sensitive.
+According to Reynoso, M. et al. (2020), “Tempus-A Facial Recognition Technology in Attendance Monitoring” The authors discuss the development and application of facial recognition technology for monitoring attendance. While the study focuses on the educational context, exploring how Tempus automates attendance tracking through facial recognition, it provides valuable insights into the integration of biometric technology for real-time monitoring and data collection (Reynoso and Torres, 2020). This concept of real-time, non-invasive monitoring can be highly relevant to the domain of post-stroke recovery and virtual-assisted therapy. In the same way that facial recognition technology tracks attendance, similar biometric systems could be adapted to monitor patients’ engagement, physical condition, and participation in exercise sessions.One potential point of integration could be in tracking patient presence and engagement during virtual therapy sessions, where the system could help ensure patients remain active participants and reduce drop-out rates. Additionally, combining facial recognition technology with emergency alarms during virtual rehabilitation sessions could enhance patient safety, ensuring rapid responses in the case of unexpected physical distress.
+2.3 Related Studies
+According to Bing Xu (2021) Stroke is a major cause of disability. Ischemic strokes are the most common type and require immediate treatment to prevent brain damage. Reducing the time from stroke onset to treatment (door-to-needle time) is crucial for improving outcomes. China has a high rate of stroke, and implementing effective care is essential. The Acute Stroke Care Map (ASCaM) is a program designed to streamline stroke care, including faster emergency response and hospital treatment. This study will evaluate if ASCaM can reduce door-to-needle times in Shenyang, China.
+According to Khan et al., (2024), “A Systematic Review on Facial Detection and Recognition: Limitations and Opportunities”, Facial detection and recognition technologies have gained significant attention in recent years due to their applications in security, surveillance, and user authentication. Khan et al., 2024 stated that Facial detection refers to the process of identifying and locating human faces in images or videos, while facial recognition goes a step further to verify or identify individuals based on their facial features. Various algorithms and techniques, such as deep learning and machine learning, have been developed to enhance the accuracy and efficiency of these processes. Factors such as lighting, pose, and facial expressions can significantly affect the performance of recognition algorithms. Research indicates that systems often struggle with variations in these parameters, leading to decreased accuracy. The deployment of facial recognition technologies raises ethical and privacy issues. Studies have shown that individuals are often unaware of how their facial data is being used, leading to calls for stricter regulations. Evidence suggests that facial recognition systems may exhibit bias against certain demographic groups, particularly in terms of gender and ethnicity. This bias can result in higher false positive rates for certain populations, which is a significant concern for equitable technology deployment. The development of more robust algorithms that can adapt to variations in lighting, pose, and expression is crucial. Techniques such as Generative Adversarial Networks (GANs) are being explored to enhance the resilience of these systems. Combining facial recognition with other biometric systems, such as fingerprint or iris recognition, could enhance overall accuracy and security. Multi-modal biometric systems are an area of active research.
+According to Nixon, M. et al. (2024), “Using Facial Attractiveness as a Soft Biometric Trait to Enhance Face Recognition Performance.”, Facial recognition technology has seen significant advancements in recent years, driven by improvements in machine learning algorithms and the increasing availability of large datasets. However, the accuracy of these systems can be influenced by various factors, including the quality of input images and the inherent characteristics of the faces being analyzed. One emerging area of research focuses on the use of soft biometric traits, such as facial attractiveness, to enhance the performance of face recognition systems. Facial attractiveness is a subjective measure influenced by cultural, social, and individual preferences. 
+However, studies have shown that certain facial features are universally perceived as attractive, which can be linked to evolutionary psychology and biological indicators of health and genetic fitness. Soft biometrics refer to traits that are not unique to individuals but can still provide valuable information for identity verification and recognition tasks. (Moneera Alnamnakani and Nixon, 2024) These traits include gender, age, ethnicity, and, as discussed in the referenced study, facial attractiveness. The findings from the study suggest that incorporating facial attractiveness as a soft biometric trait can lead to improved recognition performance, particularly in challenging conditions such as low-quality images or occlusions. This aligns with previous research indicating that soft biometrics can enhance the robustness of recognition systems by providing additional context and information. 
+According to Kyosang Hwang Et al. (2022), “Choice-driven location-allocation model for healthcare facility location problem.”, to Improve healthcare access in medically under-served areas requires more than just establishing new facilities; these facilities must also attract consumers to be effective. This study develops a location-allocation model that integrates consumer preferences to optimize both the location and attributes of new healthcare facilities. The model's effectiveness is demonstrated through its application to South Korea's perinatal care support program.
+According to Kotte et al. (2023), “FitSight: Tracking and feedback engine for personalized fitness training”, propose a strategy utilizing computer vision techniques to enhance the development of psychomotor skills through fitness exercises. Their approach focuses on providing real-time feedback on posture, enabling immediate self-correction and motivation without the need for professional supervision. The system described in their paper employs the YOLOv7-pose model for identifying human keypoints and incorporates a human topology-oriented tracking procedure. By analyzing live demonstrations or recorded videos, their system offers comprehensive tracking data to facilitate posture correction promptly. Importantly, they utilize transfer learning methods to optimize model performance without extensive retraining. The authors validated their method by benchmarking it against professional fitness videos and evaluating it with five novice participants, who responded positively, suggesting potential enhancements to the user interface.
+According to Sengupta et al. (2020), “mmPose-NLP: A Natural Language Processing Approach to Precise Skeletal Pose Estimation Using mmWave Radars.”, mm-Pose, a pioneering method for real-time detection and tracking of human skeletons using mmWave radar technology. This approach marks a significant advancement by detecting over 15 distinct skeletal joints based on mmWave radar reflection signals, a capability previously unseen in the field. The authors highlight diverse applications for mm-Pose, including traffic monitoring systems, autonomous vehicles, patient monitoring, and defense applications, enabling effective and preemptive decision-making in real-time scenarios. The system's robustness against varying lighting conditions and adverse weather is attributed to its use of radar technology. The approach involves resolving and projecting reflected radar point clouds onto Range-Azimuth and Range-Elevation planes. 
+A novel radar-to-image representation is introduced, enhancing the resolution and reducing the sparsity typical of traditional point cloud data. This representation employs RGB channels to encode normalized range, azimuth/elevation, and reflection signal power for each point. To predict the real-world positions of skeletal joints in 3D space, a forked CNN architecture is employed with the radar-to-image representation. The method is rigorously tested across scenarios involving primary motions such as walking and arm swinging, validating its accuracy in predicting motion across range, azimuth, and elevation dimensions. The paper comprehensively details the methodology, implementation steps, challenges encountered, and validation results, affirming the efficacy and potential of mm-Pose in practical applications demanding precise human skeleton tracking under diverse conditions.
+According to Ranka, P. Et al. (2022) “Pose Estimation and Virtual Gym Assistant Using MediaPipe and Machine Learning”, discuss the integration of Human Pose Estimation technology to facilitate fitness tracking, especially beneficial during periods like the global pandemic when gym access is restricted. They emphasize the importance of exercise for maintaining overall health and fitness across all age groups, noting challenges such as time constraints and limited access to gym facilities. Their approach utilizes Human Pose Estimation to track and analyze movements in real-time, enabling virtual fitness monitoring. They highlight the optimal detection distance of three meters for webcams to accurately track fitness repetitions based on elbow angles. The system detects key points on the human body and uses utility lines to form the body's skeleton, enabling precise calculation of repetitions during exercises like lifting dumbbells. For instance, an upward movement (lifting) is counted as one repetition when the elbow angle exceeds 30 degrees, while a downward movement (lowering) counts when the angle is greater than 170 degrees.	
+According to Christian Militaru Et al. (2020) “Physical exercise form correction using neural networks”, addresses the challenge of monitoring and correcting posture during physical exercises, particularly for beginners who lack access to personal trainers. They highlight the emergence of mobile applications in this domain but note the absence of general-purpose solutions that can operate effectively on standard hardware such as smartphones. Their research focuses specifically on static exercises like Plank and Holding Squat. To facilitate posture monitoring, they construct a dataset comprising 2400 images. The primary technical objective is to achieve high accuracy across a variety of scenarios. 
+They propose a solution centered on Convolutional Neural Networks (CNNs), which classify images into categories such as correct posture, hips too low, or hips too high. This classification forms the basis of a mobile application that provides real-time feedback to users for posture correction during exercises. The paper discusses the inherent limitations of their approach and explores strategies to address these challenges. By leveraging CNNs within a mobile application framework, Militaru et al. aim to democratize access to effective posture monitoring and correction tools, empowering users to maintain proper form and reduce the risk of injury during static exercises without the need for dedicated fitness professionals
+According to Sonwani Et al. (2020) “Auto_fit: Workout Tracking Using Pose-Estimation and DNN” address the significant health risks associated with physical inactivity, including coronary heart diseases, high blood pressure, and type 2 diabetes, which can reduce life expectancy. In response, they introduce "Auto_fit," an application designed to suggest workouts and track exercise performance. Auto_fit utilizes Postnet for pose estimation, identifying 17 body keypoints, and employs a Deep Neural Network (DNN) classifier to assess the exercise state and count repetitions. The system was trained using videos of trained professionals performing exercises to ensure accuracy. It operates in real-time, analyzing live video feeds to monitor and count exercise repetitions effectively. One notable feature of Auto_fit is its compatibility with low-resource hardware such as Raspberry Pi, making it accessible and versatile for a wide range of users. By providing automated workout suggestions and real-time performance tracking, Auto_fit aims to enhance physical fitness and overall health outcomes for users.
+According to Dela Cruz Et al. (2024.) “ResQMe: An Emergency Services Locator for Manila’s Hospitals, Police, and Fire Stations Utilizing the A* Algorithm [Review of ResQMe: An Emergency Services Locator for Manila’s Hospitals, Police, and Fire Stations Utilizing the A* Algorithm]” Emergency service locators play a critical role in ensuring public safety by providing timely information about the nearest hospitals, police, and fire stations. Location-Based Services (LBS) are crucial for emergency response as the researchers provide real-time location data to both responders and those in need of assistance. Real-time location data is essential in densely populated urban areas, where the timely arrival of emergency services can be lifesaving. he A* algorithm is a widely used pathfinding and graph traversal algorithm known for its efficiency and accuracy in finding the shortest path between points. Dela Cruz et al. (2024) employs the A* algorithm to locate the nearest hospitals, police, and fire stations in Manila. The use of the A* algorithm ensures that the application can provide the most efficient routes, reducing response times and improving the overall effectiveness of emergency services.  By addressing the specific challenges of Manila's urban landscape, ResQMe offers a valuable tool for both residents and emergency responders. The application’s ability to provide accurate and timely information can significantly enhance public safety and emergency response efficiency. The implementation of the A* algorithm in the ResQMe application represents a significant advancement in the field of emergency service locators. The review of literature underscores the importance of LBS and pathfinding algorithms in enhancing emergency response capabilities, particularly in complex urban environments.
+According to Marc Gelian E. Ante Et al. (2024) “Human activity recognition using supervised machine learning techniques”, Human activity recognition (HAR) has gained significant attention in recent years due to its potential applications in various fields such as healthcare, sports, security, and robotics. HAR involves the identification and classification of human activities based on sensor data collected from devices such as smartphones, smartwatches, and wearable sensors. This paper aims to provide an overview of the literature related to HAR using supervised learning techniques. Supervised learning is a popular approach for HAR as it leverages labeled training data to build models that can accurately classify human activities. In this context, the input features are extracted from sensor data, and the corresponding activity labels are used for training the model. Decision trees are simple yet effective classifiers used in HAR. 
+The researchers created a tree-like model of decisions based on features extracted from sensor data. Random forests are an ensemble learning method that combines multiple decision trees to improve classification accuracy. Support Vector Machines (SVM)SVM is a popular supervised learning algorithm that aims to find an optimal hyperplane that separates different classes in the feature space. Artificial Neural Networks (ANN) ANNs are computational models inspired by the structure and function of biological neural networks. They consist of interconnected nodes (neurons) organized in layers, where each neuron performs a weighted sum of its inputs and applies an activation function. According to Ante et al. (2024), The choice of the most suitable algorithm depends on the specific requirements of the application and the characteristics of the sensor data. supervised learning techniques have been extensively explored in the context of HAR. Decision trees, random forests, support vector machines, and artificial neural networks have all demonstrated their effectiveness in accurately recognizing and classifying human activities.
+According to Jefferson Gabutan Et al. (2023) “Motion: A Mobile Application for Yoga Pose Accuracy and Consistency” The intersection of mobile technology and physical fitness has garnered significant attention, particularly in the realm of yoga practice. The study presents "Motion," a mobile application designed to enhance yoga pose accuracy and consistency. Traditional yoga practice relies heavily on the guidance of a trained instructor to ensure pose accuracy and to prevent injury. With the advent of mobile technology, yoga practitioners have increasingly turned to apps for instruction and feedback.  The integration of advanced sensors, machine learning, and computer vision in mobile devices has significantly improved the functionality of fitness applications. 
+These technologies allow for real-time pose detection, correction, and feedback, thus enhancing the user's ability to perform yoga poses accurately and consistently. Reyes et al. (2023) stated that mobile sensors and machine learning algorithms to provide real-time feedback on yoga poses.  The app's key features include pose detection, accuracy scoring, and consistency tracking, making it a valuable tool for both novice and experienced practitioners. The incorporation of real-time feedback mechanisms in yoga applications has been shown to enhance user engagement and motivation. By providing immediate corrections and progress tracking, these apps can simulate the experience of having a personal yoga instructor. This not only improves pose accuracy but also helps users to develop a deeper understanding of their practice.As mobile devices continue to evolve, the potential for enhancing physical fitness through innovative applications is immense. Future developments in this field are likely to provide even more sophisticated tools for improving health and wellness through technology-enhanced yoga practice.
+According to Steven Dg. Boncolmo Et al. (2024), “Gender Identification Using Keras Model Through Detection of Face” The paper explores the application of a Keras deep learning model for gender identification using facial recognition. This study is focused on the technological aspect of facial detection and classification through neural networks, with a specific emphasis on the accuracy and processing power required for gender identification. The gender identification model presented in the paper utilizes machine learning and computer vision techniques, such as facial detection, which could be adapted for mobility analysis in post-stroke recovery. In post-stroke therapy, computer vision could similarly be used to track patient movements and assess their progress during virtual rehabilitation sessions. The paper highlights the real-time nature of gender identification through face detection. This concept of real-time processing is crucial for virtual-assisted therapy, as it requires immediate feedback and monitoring of patient exercises to adjust the therapeutic approach dynamically. The gender identification study outlines a specific application of neural networks, but the underlying principles could be customized for broader purposes (Boncolmo et al., 2021). For example, the facial recognition model could be adapted to track specific postures or exercises in a rehabilitation setting, aligning with your paper’s focus on exercise tracking.
+According to Rosado Et al. (2020), “An Empirical Examination of the Factors Influencing the Intention to Use Health Information System with Decision Support for Stroke Risk Assessment and Prediction” Health information systems are integral in modern healthcare for managing patient data and supporting clinical decisions. The integration of decision support systems (DSS) enhances these functionalities by providing actionable insights derived from data analysis.  Predictive analytics in healthcare involves using historical data to predict future health events. For stroke risk assessment. According to Rosado and Hernandez (2020), Predictive systems for stroke risk use data from electronic health records and patient histories to forecast risks.The study contributes to understanding the factors influencing the use of decision support systems for stroke risk assessment. Their findings highlight the importance of addressing both perceived ease of use and perceived usefulness, as well as other contextual factors such as social influence and facilitating conditions.
+ 
+According to Bague, L Et al. (September 2020), “Recognition of Baybayin (Ancient Philippine Character) Handwritten Letters Using VGG16 Deep Convolutional Neural Network Model [Review of Recognition of Baybayin (Ancient Philippine Character) Handwritten Letters Using VGG16 Deep Convolutional Neural Network Model]” the study examines relevant literature and research related to the study's core methodologies and applications, particularly in the context of handwritten character recognition using deep learning models. 
+Handwritten character recognition (HCR) is a challenging problem in the field of machine learning and computer vision. Various approaches have been explored to enhance the accuracy and efficiency of recognizing handwritten text, with deep learning models emerging as a particularly powerful tool. The advent of deep learning has significantly improved HCR performance. Convolutional Neural Networks (CNNs), in particular, have shown remarkable success. 
+The study by Bague et al. (2020) explores the use of the VGG16 deep learning model for recognizing handwritten Baybayin characters—an ancient Philippine script. By training the model on a Baybayin dataset, the researchers achieved high recognition accuracy, showcasing VGG16’s adaptability beyond common scripts like Latin or Arabic. This work not only advances handwritten character recognition but also supports efforts to preserve cultural heritage through modern AI techniques.
+ 
+2.4 Synthesis 
+Recent literature highlights the growing role of technology in addressing limitations of traditional stroke rehabilitation, such as poor accessibility, inconsistent therapy intensity, and patient disengagement. Studies by Agomuo et al. (2024) and Okereke et al. (2024) emphasize the importance of mobile health applications for emergency response and real-time patient monitoring, which aligns with the proposed system’s emergency alert feature during virtual-assisted therapy. 
+The use of computer vision and machine learning in posture analysis is also well-supported. Research by Zafri Mazlan (2022) and Ghadekar et al. (2021) demonstrates the effectiveness of pose estimation tools like MediaPipe for tracking body movements and providing corrective feedback. These findings validate the capstone’s mobility analysis component, which uses similar technologies to assess exercise performance and support individualized rehabilitation. Facial recognition, discussed by Hameed et al. (2024) and Amer (2024), has been widely applied in attendance and access control systems. These systems enhance identity verification, reduce fraud, and improve security—functions that are crucial in the capstone’s goal to ensure that only authorized patients perform rehabilitation exercises. However, ethical concerns raised by Smith et al. (2021) emphasize the need to implement privacy measures and obtain informed consent when using biometric data, especially in healthcare settings.
+Emergency alert systems and machine learning technologies have proven effective in healthcare monitoring and prediction. These findings support the capstone’s use of audio alerts for safety and mobility tracking for personalized stroke rehabilitation. Overall, integrating facial recognition, mobility analysis, and emergency response offers a secure and innovative solution for improving post-stroke recovery. 
+CHAPTER THREE
+METHODOLOGY
+This study focuses on developing a mobile application for Uplift Mobility using tensorflow lite, flutter, firebase, dlib, opencv, and mediapipe. It also involves data collection, preprocessing, and performance evaluation to ensure accurate and reliable results.
+3.1 Research Design
+	3.1.1 System Development
+Scrum is an Agile framework that uses iterative cycles called sprints to deliver high-quality products. Its structured yet flexible approach makes it ideal for developing mobile applications, such as those for post-stroke recovery. Scrum emphasizes iterative development, continuous improvement, and collaboration, enabling rapid delivery of software that meets the evolving needs of users. It involves three key roles: the Product Owner (stakeholder representative), the Scrum Master (facilitator), and the Development Team (who builds the product).
+ 
+Figure 1: Agile Sprint Software Development Model
+Sprint 1
+	In the first sprint, the researchers will focus on project planning and identifying the tools that will be used in creating a system. This will involve brainstorming sessions, planning and creation of UI for the system, and doing the first objective. The sprint will run from August 26 to September 14, 2024. 
+Backlogs
+	Figure 2 presents the backlogs for the first sprint, outlining the specific tasks assigned to each member. 
+ 
+Figure 2: Sprint Backlog 1
+The initial task is to schedule a meeting where the researchers will discuss and brainstorm potential tools for system creation. including the creation of UI/UX of the system then distribute the tasks to each member.
+
+
+Planning
+The researchers will begin by organizing a meeting to discuss and brainstorm various tools required for system development, focusing on implementing facial recognition technology. During this discussion, researchers will break down the objectives, particularly addressing how to prevent unauthorized access to post-stroke recovery data. The meeting will also cover the creation of an intuitive UI/UX design that facilitates seamless integration of facial recognition into exercise sessions. Once the discussion is completed, tasks will be assigned to each member to ensure efficient workflow and structured project execution.
+Implementation
+	Following the planning phase, the team will proceed with developing and integrating facial recognition into the system. The primary focus will be ensuring secure user authentication to prevent unauthorized individuals from participating in exercise sessions, thereby minimizing the potential for cheating. Researchers will select appropriate tools and frameworks to support the security protocols while also designing a user-friendly interface that enhances accessibility. During this stage, preliminary tests will be conducted to assess the functionality and effectiveness of the facial recognition component.
+Daily Scrum
+	To maintain consistent progress, the team will conduct daily scrum meetings throughout the first sprint. These meetings will allow researchers to provide updates on their assigned tasks, discuss challenges, and refine implementation strategies. By addressing obstacles in real-time, the team can ensure that the project remains on track while continuously improving system functionality and security.
+Review
+	After implementing facial recognition, a thorough review phase will be conducted to evaluate its efficiency in identifying users and preventing unauthorized access. The researchers will assess the system’s security measures, gather feedback from initial tests, and determine whether refinements are needed to enhance accuracy and reliability.
+Retrospect
+	Once the review process is completed, the research team will reflect on the implementation to identify strengths and areas for improvement. Lessons learned during the development phase will be documented, along with challenges encountered and solutions applied. This evaluation will help refine the approach for future system enhancements, ensuring that security protocols remain effective and facial recognition technology continues to meet project objectives.
+Deployment
+	Finally, the first objective facial recognition system will be fully integrated into the post-stroke recovery UI. Before deployment, additional security assessments will be performed to verify its ability to prevent unauthorized access. Once finalized, the system will be released for user testing, allowing researchers to monitor its performance and make necessary optimizations. Through continuous assessment, the team aims to enhance security, ensure data protection, and support a reliable recovery experience for users.
+Sprint 2
+In this sprint, the research team will focus on developing a mobility analysis system to enhance exercise effectiveness and efficiency for post-stroke patients. Using the Mediapipe library and Teachable Machine, the system will analyze patient movements, ensuring personalized rehabilitation tailored to individual progress. The sprint includes breaking down the problem, developing the mobility analysis system, gathering datasets for training, testing the implementation, and documenting findings. 
+Backlog
+Figure 3 shows the lists of goals, this includes the creation of a second function of the system, training the model using the datasets, and running and testing. 
+ 
+Figure 3: Sprint Backlog 2
+Planning
+The research team will begin by breaking down the problem related to mobility analysis, ensuring a clear understanding of its application in optimizing post-stroke exercise effectiveness. Researchers will define the necessary parameters for using the Mediapipe library and Teachable Machine to develop an adaptive rehabilitation system. They will also identify essential datasets required for training and establish a structured workflow for development, testing, and refinement
+Implementation
+During this phase, researchers will integrate Mediapipe and Teachable Machine to develop a mobility analysis system. The researcher analyzes mobility data. Dataset collection will be initiated to support machine learning processes, ensuring accurate and personalized rehabilitation recommendations.
+Daily Scrum
+Daily scrum meetings will be held to discuss progress, address challenges, and adjust strategies as needed. Researchers will review development milestones, dataset collection efficiency, and system performance. These discussions will ensure the research stays aligned with the objective while continuously refining mobility analysis accuracy.
+Review
+	Once the mobility analysis system is developed and tested, researchers will evaluate its effectiveness in enhancing exercise efficiency for post-stroke patients. They will analyze collected data, validate system accuracy, and gather feedback from preliminary testing. Adjustments will be made to improve mobility tracking and ensure optimal rehabilitation program customization.
+Retrospect
+After testing and review, the research team will reflect on challenges faced during development, evaluate Mediapipe and Teachable Machine integration, and document improvements needed for future iterations.
+Deployment
+Finally, the mobility analysis system will be integrated within the post-stroke exercise system. Security checks and usability testing will be conducted before release, ensuring seamless integration and reliable performance. 
+ 
+Sprint 3
+In this sprint, the researchers will focus on developing an alarm system that alerts surrounding individuals when a patient experiences an emergency during a virtual-assisted therapy session. Using an audio player, the system will trigger an audible alert to ensure immediate response and assistance. The sprint includes identifying necessary packages, developing the alarm system, conducting testing, documenting results, and refining implementation strategies through daily scrum meetings.
+Backlogs
+Figure 4 shows the list of the next goal of researchers, this includes the creation of the alarm system, run and testing, and documentations.
+ 
+Figure 4: Sprint Backlog 3
+Planning
+The research team will begin by identifying the necessary packages required for developing the alarm system. This step includes selecting an audio playback library, defining integration methods, and ensuring compatibility with the therapy platform. Additionally, researchers will establish the trigger conditions that activate emergency alerts, ensuring accurate detection and response.
+Implementation
+	Once the libraries are selected, researchers will proceed with building and integrating the alarm system. The system will be designed to detect movement anomaly from the user and activate an audio alert to notify surrounding individuals. Initial coding and system integration will occur during this phase, followed by refining the detection mechanism.
+Daily Scrum
+	The team will hold daily scrum meetings to track progress, discuss challenges, and refine the alarm system. These meetings will focus on troubleshooting technical issues, improving response mechanisms, and ensuring smooth integration into the virtual-assisted therapy.
+Review
+Following the initial implementation of the emergency detection system, researchers will conduct an in-depth evaluation to determine its effectiveness in identifying critical situations and initiating timely alerts. This review will analyze the system’s responsiveness how swiftly it reacts to emergencies—and its accuracy in distinguishing genuine threats from false alarms. Researchers will also assess the ease of use, ensuring the system is intuitive and accessible to a diverse range of users. In parallel, insights gathered from early-stage tests and user experiences will play a crucial role in refining the system’s audio activation features. By studying performance across varied environments and conditions, the team aims to improve its reliability and optimize its function for real-world application. These findings will guide iterative enhancements that bolster the system’s readiness for broader deployment and long-term use.
+ 
+Retrospect
+	After the review phase, the team will reflect on the development process, analyzing challenges faced and documenting key lessons learned. The functionality and integration of the audio-based emergency alert will be examined, ensuring optimal efficiency for patient safety. Researchers will identify improvements for future iterations of the alarm system.
+Deployment
+	To conclude the development process, the alarm system will be seamlessly incorporated into the virtual-assisted therapy framework, where it will play a crucial role in enhancing participant safety and overall system responsiveness. Before public release, the integrated system will undergo a final round of rigorous security evaluations and usability validations to confirm that it meets all operational standards and protects user data. During the deployment phase, real-world user testing will be carried out to gather insights into system performance, identify any usability challenges, and ensure the alarm mechanism responds effectively across diverse scenarios. Researchers will closely monitor system behaviors and user feedback to implement final refinements, optimizing the alert protocols and interaction design. Beyond deployment, ongoing assessments will be conducted to ensure consistent reliability of emergency detection and maintain rapid response capabilities during therapy sessions, thereby reinforcing user trust and safeguarding therapeutic outcomes.
+Sprint 4
+In this sprint, the research team will focus on Evaluation of the system’s accuracy and performance. The goal is to run and refine the system, ensuring it meets the expected standards for facial recognition and pose estimation. Researchers will utilize confusion matrix testing for face recognition and regression modeling for pose estimation accuracy, analyzing the results to enhance precision. This sprint will also involve documenting findings to guide future improvements
+Backlog
+Figure 5 shows the list of the last goal of researchers, this includes the testing, evaluation of the system, and documentations.
+ 
+Figure 5: Sprint Backlog 4
+Planning
+The team will prepare the system for evaluation, highlighting the evaluation criteria for facial recognition and pose estimation accuracy. They will establish the parameters for confusion matrix analysis and regression, ensuring that tests effectively measure the system's performance. Additionally, researchers will define the scope of documentation to systematically record results and identify necessary refinements
+ 
+Implementation
+The team will evaluate facial recognition and pose estimation accuracy by benchmarking results and using feedback to enhance system performance.
+Daily Scrum
+	Throughout the sprint, daily scrum meetings will be held to discuss testing progress, challenges, and improvements. Researchers will report results, share insights on accuracy refinements, and collaborate on strategies to resolve any detected discrepancies. These sessions will ensure continuous optimization and alignment with project goals.
+Review
+	After testing, the team will evaluate how accurately the system performs in facial recognition and pose estimation by comparing results with established benchmarks. They’ll use this analysis and user feedback to pinpoint areas for improvement and enhance the system’s overall effectiveness.
+Retrospect
+Researchers will finalize the review by reflecting on the testing phase, noting valuable lessons and areas for future improvement. They’ll assess the effectiveness of tools like the confusion matrix and regression models, making adjustments to enhance accuracy and optimize evaluation methods.
+Deployment
+Finally, once the refinements are implemented, the updated system will be finalized for documentation and preparation for future iterations. The results of face recognition and pose estimation accuracy tests will be compiled into reports, providing insights into system performance. This refined version will guide subsequent development phases and improvements.
+3.1.2	Conceptual Framework
+see figure 2 shows the concept of the study on the proposed system which will focus on the development of “Uplift - Mobility Analysis for Post-Stroke Recovery With Exercise Tracking and Virtual-Assisted Therapy” the process stage involves Input, Process, and Output. The Input is the requirements and foundation that will be needed to create the mobile application, the process will be agile for creating the mobile application, and output is to implement a machine learning based application that primarily implements form recognition of Exercises by mapping different Poses, providing correct angles. This approach guides the developers throughout the study, including data gathering methods.
+ 
+Figure 2: Conceptual Framework of the System 
+This approach guides the development team throughout the study, including the data gathering methods. The data for pose recognition will come from a combination of visual inputs (such as from a camera or sensors) and machine learning models trained to recognize common postures during rehabilitation exercises. The output will then be tested in real-world settings to ensure that it improves mobility and provides useful feedback for stroke patients undergoing physical therapy.
+Overall, this system aims to enhance post-stroke recovery by providing accurate feedback, promoting proper exercise form, and offering virtual-assisted therapy to users, ultimately helping to accelerate their recovery journey.
+3.2	System Architecture 	
+See figure 3 displays the system architecture of the A Mobile Application Mobility Analysis for Post-Stroke Recovery: Exercise Tracking and Virtual-Assisted Therapy for post-stroke patients. The system architecture consists of the Users, internet, Opencv, Dlib, Mediapipe and a database server.
+ 
+Figure 6. Mobility Analysis for Post-Stroke Recovery with Exercise Tracking
+ and Virtual-Assisted Therapy System Architecture
+The user is at the heart of the system. They interact with the mobile app to control the functionality of the system, such as starting the camera, uploading pictures, and receiving feedback on their exercise form. Through the app, they can upload their pictures (for training the system to recognize their face), activate the camera for live exercises, and receive real-time feedback. 
+Mobile Phone as Mediator
+The mobile phone serves as the interface through which the user communicates with the system. It acts as a mediator between the user and the machine learning model running on a server. The app is built using Flutter, which allows the development of cross-platform apps (iOS and Android). The mobile app presents a UI (user interface) that the user interacts with. The Flutter app communicates with a server-side machine learning model hosted in the backend (likely using Flask). The app sends HTTP requests to the server and receives responses, which are displayed to the user on the app (e.g., feedback on exercise form or face recognition results). When the user clicks buttons to start the camera, upload pictures, or get feedback, the app sends data to the Flask server via Wi-Fi (or the internet).
+Technical Details:
+Flutter provides the front-end interface.The app sends requests via HTTP/HTTPS to the Flask server running the ML model, using technologies such as REST APIs or WebSocket for real-time communication.
+Wi-Fi
+Wi-Fi enables the communication between the mobile device and the backend system (server hosting the ML model), making it possible for the app to send data (images, video, commands) to the server and receive responses. The mobile device connects to the server using Wi-Fi, which allows data such as camera frames or images to be transferred for processing. When the user initiates a camera session (via Flutter), the video feed is sent to the server for processing in real-time. Similarly, when a user uploads photos or triggers face recognition, those photos are sent to the backend server for training or analysis. The machine learning model that powers the system is hosted on the server, and the mobile app needs an internet connection (Wi-Fi) to communicate with it. Without Wi-Fi, the mobile phone wouldn't be able to send or receive data from the server.
+OpenCV (Camera Activation)
+OpenCV (Open Source Computer Vision Library) is used to interface with the mobile phone's camera. It captures the camera feed and prepares it for further processing by the server. Once the user grants permission, OpenCV accesses the camera hardware on the mobile phone. The app captures video frames in real-time, and these frames are sent to the Flask server for processing. OpenCV handles the video feed, while the server processes each frame. OpenCV can also be used to preprocess the images or video (e.g., resizing, cropping, or converting color spaces) before sending them to the server. 
+dlib (Face Recognition)
+dlib is a Python library for machine learning and computer vision tasks. In this system, it is used specifically for face recognition. It helps in both training the system with the user’s uploaded pictures and performing face recognition during real-time interaction.
+Face Training: When the user uploads pictures of themselves, dlib extracts facial features (such as the positions of eyes, nose, mouth, etc.). These features are used to create a face model specific to the user.
+Face Recognition: When a live video feed is captured, dlib compares the incoming video frames with the trained face models to identify or verify the user’s face.dlib uses techniques like facial landmarks (points on the face such as eyes, nose, and mouth) and distance-based comparisons (e.g., comparing the distances between features) to perform accurate face recognition. dlib allows the system to recognize and verify the user’s identity, which is crucial for personalizing feedback and ensuring the correct user is interacting with the system.
+MediaPipe (Exercise Pose Feedback)
+MediaPipe’s pose detection technology to monitor and improve a user’s exercise form in real time. By leveraging a device’s camera, MediaPipe can detect and track 33 key points on the human body—such as joints and limbs—allowing it to understand how a person is moving during physical activity.
+his data is then analyzed to determine whether the user is performing an exercise correctly. If the form deviates from the ideal posture, the system provides instant feedback, such as visual overlays, corrective prompts, or audio cues. This feedback helps users adjust their movements on the spot, promoting safer and more effective workouts. MediaPipe’s real-time capabilities and lightweight performance make it ideal for fitness apps, virtual personal trainers, and rehabilitation tools that aim to guide users without the need for wearable sensors or in-person supervision.
+Pose Detection: As the user performs exercises, MediaPipe detects key body landmarks (e.g., the positions of shoulders, hips, knees, and ankles). These landmarks help to determine the user’s body posture during exercises like squats, lunges, or push-ups.
+Feedback: The detected landmarks are compared against ideal reference landmarks (predefined positions for proper exercise form). Based on the analysis, the system provides real-time feedback to the user, for example: "Good form!" or "Try adjusting your knee position." MediaPipe allows for real-time exercise feedback, helping users correct their form during workouts and improving the effectiveness of the exercise. One of the feedback is the alarm notification, this will be triggered when the user is detected not moving.
+Database (Storage and Retrieval)
+The database acts as a persistent storage system, housing user data such as facial images for training and exercise feedback like landmarks and performance evaluations. It supports machine learning model development and enables consistent progress tracking by allowing retrieval of stored images and data for face recognition and exercise comparison.
+The system flow begins with the user interacting with the Flutter-based mobile app, triggering actions such as activating the camera or uploading photos. The mobile phone acts as a mediator, sending the data (camera feed or images) to the backend server via Wi-Fi. OpenCV captures the live camera feed, which is then processed by dlib for face recognition, comparing the incoming video with trained face models. MediaPipe detects key body landmarks during exercises and provides real-time feedback on the user's form. Finally, a database stores and retrieves user data, including images for face recognition and exercise landmarks, allowing the system to track progress and personalize feedback.
+System Flowchart
+ 
+Figure 4: System’s Flowchart
+The figure 4 represents the flowchart of “Uplift - Mobility Analysis for Post-Stroke Recovery With Exercise Tracking and Virtual-Assisted Therapy” The flowchart shows the methodical process of using the mobile application. If a user doesn’t have an account, the user must register and if the user already has an account the user will be led to the main page, upon accessing the system. Successful authentication grants authorized access to the app. The users can navigate all the features of the system.
+ The "Home page" section shows the bottom navigation which have several options such as homepage where is the landing page and the user will be able to see the available exercises, maps for nearest hospital location, reports, where the user will be able to track the user’s finished exercises and settings, with two options, which is edit and logout. The workouts in the homepage represent the varieties of exercises that the user may prefer to do.
+The flowchart illustrates the navigation within the Homepage section, where users can browse available exercises. Upon selecting exercise, they are presented with more specific options. Once a specific exercise is chosen, users can watch a tutorial video and begin the activity by activating the camera.
+Face Recognition Flowchart
+Figure 7.  Flowchart for Face Recognition using Dlib 
+Figure 7 shows that during an active live video feed, the system utilizes dlib to analyze incoming frames and perform real-time face recognition. dlib compares the captured facial data against registered face of the user. These measurements form a unique facial signature used for accurate identity verification. 
+To optimize system performance and reduce latency, facial recognition is executed at 5-second intervals instead of continuously. This timed scanning approach minimizes computational load while maintaining reliable identity verification. If the system fails to recognize the user's face in six consecutive scans (equivalent to 30 seconds), it assumes the correct user is no longer present and will automatically terminate the session. This safeguard prevents unauthorized use and maintains the integrity of personalized data and feedback.
+Mobility Analysis Flowchart
+Figure 8.  Flowchart for Pose Estimation using a Mediapipe model
+The system utilizes MediaPipe’s pose detection model to monitor and enhance users' exercise form in real time. By accessing the device’s camera, the system can detect and track body landmarks. This allows the system to accurately interpret body movements during exercises like squats, lunges, and push-ups.
+As the user performs a workout, the system compares their detected posture against predefined reference poses that represent correct form. When misalignment or improper movement is identified, the system provides immediate feedback such as visual cues, and corrective prompts to help the user make on-the-spot adjustments. 
+Alarm System Flowchart
+Figure 9.  Flowchart for Alarm Notification feature
+To develop an alarm system that alerts nearby individuals during a patient’s emergency in a virtual-assisted therapy session, the system maintains a dual-layered monitoring process that both verifies the user’s identity and observes physical activity. Additionally, the system allows a chance to resume movement and cancel the alert if the inactivity was unintentional. 
+If the system detects no movement for approximately 30 seconds, it interprets this as potential distress or inactivity and automatically triggers an audible alarm. A loud, pre-recorded alarm is activated to alert nearby caregivers or therapists immediately.
+A built-in exercise timer allows users to define the intended session duration. The system tracks this in real time, and if the user ends the session prematurely, a notification is displayed, alerting them that the exercise was stopped before completion. This helps promote accountability and proper adherence to the recommended session time.
+Entity Relationship Diagram
+ 
+Figure 10: Entity Relationship Diagram
+the Entity Relationship Diagram (ERD), offers a comprehensive visual representation of how the various entities within the system are interrelated. It illustrates the connections, relationships, and interactions between these entities, providing a clear map of the system's data structure. The ERD serves as a foundational blueprint, outlining the logical flow of information and dependencies between key components. 
+By offering a detailed view of the system's architecture, the diagram ensures that the design process is both efficient and organized, enabling developers to structure the database in a way that supports seamless data management, integrity, and optimal performance. This careful planning facilitates a more effective and cohesive system design that aligns with the overall goals of the project. 
+The User entity oversees several critical processes, including provisions for personal information, accessing exercise form tracking, and viewing reports or analytic progress. The ERD shows that one user can only have one account with the specific required information, and one user can have one data at machine learning. While the User and the exercises show that one user can do many exercises and many exercises can only do one report.
+Data Flow Diagram 
+ 
+Figure 11: Level 0 Data Flow Diagram
+Figure 11 represents a comprehensive overview of the system. Users have the capability to input information, including user details, movement, and face images for verification. Additionally, a camera is employed for implementing workout form correction, once the camera is activated the system must confirm if the one who’s doing the exercises is the user. 
+To verify if the user is the one who’s doing an exercise, the user must show their faces at the front of the camera to verify, and after verifying if the user is the one who’s using the system, the system will let the user continue the exercises. The application processes this data into meaningful information and retrieves data from the database as required. The system also updates information dynamically, while the back-end manages other essential processes.
+
+Figure 12: Level 1 Data Flow Diagram
+Figure 12 illustrates the Level 1 Data Flow Diagram of the system, providing an in-depth view of the data flow within the system. It details the management of user data, exercise information, and faces. Furthermore, the diagram specifies the exact locations where data is stored and utilized, the handling of data from the Machine learning model of exercise analysis, and the processing of mentioned data for visualization. 
+The user is the one who is responsible for inputting an information to the mobile application, while the mobile application is the one that will pass the information to the backend such as face recognition: for recognizing if the user is the same user at the database, and the pose estimation: whereas the system will gives a feedback if the user’s exercises is good or not.
+Use Case Diagram
+ 
+Figure 13. Use Case Diagram
+Figure 13 shows the use case diagram; it illustrates the interactions between registered users and the Uplift Mobile Application. It focuses on the actions available to users post-login or registration. The figure 8 shows the use case diagram that outlines how users interact with the application after logging in or registering.
+Actors
+○	Registered User: The primary actor who interacts with the application after successful login or registration.
+Use Cases
+○	View Homepage. The user can view the homepage that displays relevant features such as exercises, nearest hospital location, progress reports, and settings.
+○	Machine Learning (ML). The user can access the main feature of the Uplift Mobility application, which can analyze the user’s exercise movements and give real-time feedback to the user’s movements. It also includes the feature of face recognition where the user needs to show their face while doing the exercises to prevent cheating.
+○	Alarm Notifications. The application will trigger the alarm notification if the user isn’t moving for about 60 seconds, this is one of the main features of the Uplift Mobility application. This helps notify the surrounding when something went wrong to the user, such as accidents.
+○	Map. The user can view and search for the nearest hospital at the user’s current location, this helps the user to locate the nearest hospital if an emergency comes by. 
+○	Track Exercises. The user can track their exercise progress by going to the report page. At this page (Report Page.) the user will be able to see their completed exercises and the date of completion.
+○	Edit Information. The user can update their personal information, including name, email, password, etc…
+○	Logout The user can log out their account after using the application, this prevents the other users from using the accounts of the registered user.
+This use case diagram provides a clear overview of the functionality available to registered users of the Uplift Mobile Application. By understanding these use cases, developers and designers can ensure that the application meets the needs of users and provides a valuable tool for post-stroke recovery.
+ 
+3.3	System Software and Hardware
+System software and hardware are the fundamental components of computing. Hardware includes the physical parts of a computer, such as processors, memory, and storage, while system software serves as the bridge that enables communication between users and machines. Their interaction ensures efficient performance, security, and innovation in modern technology.
+	A. Software
+Table 4: Software Requirements 
+IDE	Scripting 
+Language	Database	Wireframe
+Visual Studio Code (VS Code)
+GitHub	Python
+TensorFlow
+TensorFlow Lite
+Flutter	Firebase	Canva
+Figma
+In table 4, provides insight into the tools used by the proponents. Visual Studio Code (VS Code) served as their primary source code editor, offering strong functionality such as debugging support, syntax error highlighting, and code refactoring capabilities across a wide range of programming and scripting languages such as Python and Flutter. In addition to this, Firebase was employed by the proponents for efficient database modeling purposes. The mobile application design wireframe, which emphasizes prioritizing content spacing to impact the user interface, was created using Canva. Canva is a collaborative interface design tool focused on creating mobile-base system interfaces.
+B. Hardware
+Table 5: Hardware Requirements 
+Personal Computer	Requirements
+	Central Processing Unit (CPU)
+●	Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz 2.70 GHz
+	Random Access Memory (RAM)
+●	16gb RAM
+	Solid State Drive (SSD)
+●	512gb SSD
+	Operating System
+●	Windows 11
+●	Windows 10
+Internet	Modem
+●	150 mbps
+In table 5, the system will utilize a Lenovo V3010-14IKB as the primary computer system. This laptop model provides a reliable and efficient platform on which to operate the development tools and software needed for this project. Moreover, Intel(R) Core(TM) i5-7200U processor with a base frequency of  2.50GHz 2.70 GHz, the Lenovo V3010-14IKB provides a suitable hardware foundation for smooth development and execution of the software. 
+For the desktop, any typical office desktop accessible or the ones that administrators are using right now are appropriate. To ensure smooth and efficient operations, it's best to choose a system with 16GB of RAM for seamless multitasking and a 256GB solid-state drive for ample storage space and faster data access.
+
+3.4	Methods and Tools
+In the development of the Uplift Mobility mobile application, a combination of advanced methods and tools was utilized to ensure the creation of a robust and effective platform for post-stroke rehabilitation. The methods involved in the project focused on integrating cutting-edge technologies such as facial recognition, mobility analysis, and real-time feedback systems to enhance the rehabilitation process. To achieve these goals, various software tools and hardware resources were employed to support the development, testing, and deployment of the application. This section outlines the key methods and tools used, including the programming languages, theories, and frameworks that contributed to the successful implementation of the project.
+
+ 
+Visual Studio Code	
+ 
+Figure 14. Visual Studio Code
+Visual Studio Code (VS Code) played a key role in developing your mobile application for post-stroke rehabilitation. It provided a flexible and efficient workspace for coding, testing, and organizing the different modules required to meet your study’s objectives. Using VS Code, you implemented facial recognition with Dlib for secure user authentication, built pose estimation features with MediaPipe to analyze mobility and provide exercise feedback, and configured an alarm system with Pygame to notify others of emergency situations during therapy.
+Overall, VS Code enabled you to seamlessly integrate all components of your app, ensuring real-time responsiveness, personalized support, and improved outcomes for patients.
+Dlib
+
+
+
+
+Figure 15. Dlib
+To fulfill the objective of implementing facial recognition as a security feature during exercise sessions ensuring that only authorized users are actively participating the researcher adopted a structured approach centered around the use of the Dlib library. This decision was based on Dlib’s proven capabilities in both face detection and facial feature analysis, which are essential for real-time identity verification
+This tool was selected for its reliable facial detection and recognition capabilities, which allowed the researcher to extract and analyze facial landmarks from video input, image input, and real-time analysis. By integrating Dlib into the system, the researcher enabled real-time facial verification, ensuring that only authorized individuals could participate in rehabilitation exercises. This process not only reinforces user accountability but also significantly reduces the risk of cheating or data manipulation during sessions. Through precise facial recognition, the system contributes to a more personalized and secure rehabilitation environment for post-stroke users.
+MediaPipe
+
+
+
+
+
+
+Figure 16. MediaPipe
+To achieve the objective of implementing a mobility analysis system that enhances exercise effectiveness and efficiency for post-stroke users, the researcher followed a systematic and technology-driven approach. Using Visual Studio Code as the coding environment, the researcher wrote and executed scripts in Python a versatile language well-suited for computer vision and data analysis. 
+Central to the analysis was the MediaPipe library, which enabled the real-time tracking of human body landmarks during physical exercises. By processing input, MediaPipe provided critical data on joint positions and movement patterns. These metrics were then used to assess the quality of mobility, identify inefficiencies, and guide improvements. To classify and refine these insights, the researcher incorporated Teachable Machine, a platform that allowed for training machine learning models based on user movement data. 
+This combination of precise pose estimation with intelligent classification formed a feedback system capable of analyzing user performance, offering corrections, and ultimately optimizing rehabilitation routines tailored for individuals recovering from stroke.
+ 3.4.2.4 Pygame
+
+
+
+
+Figure 17. Pygame
+To achieve the objective of developing an alarm system that alerts nearby individuals in the event of a patient’s emergency during a virtual-assisted therapy session, the researcher implemented a solution combining facial recognition with audio playback functionality. Using the “Mediapipe”, the researcher established a real-time monitoring mechanism that continuously analyzes the patient’s Movements. 
+Once the user stopped moving for about 30 seconds the alarm will be triggers an audible alarm using “Pygame”, a Python library capable of handling multimedia tasks such as playing sound files. The researcher utilized Pygame’s audio player module to initiate a loud, pre-recorded alarm signal, which ensures that surrounding caregivers or therapists are immediately notified of the situation. By integrating Dlib’s precise facial analysis capabilities with Pygame’s reliable audio execution.
+
+Datasets and Formulas
+This section provides an overview of the datasets and mathematical formulas used in the development of the face recognition and pose estimation systems. The datasets contain visual inputs essential for training and evaluating these models, ensuring their accuracy and robustness in identifying faces and analyzing body movements. Additionally, the formulas are utilized to calculate key performances. These datasets and formulas form the foundation for optimizing the performance of both face recognition and pose estimation technologies.
+
+Formulas and Datasets	
+Table 4: Face Datasets for Training
+ 	 	 	 	 	 
+ 	 	 	 	 	 
+
+Table 4 presents a compilation of datasets that will be utilized to train the face recognition model. These datasets consist of images that capture various angles, lighting conditions, and facial expressions of the subjects. By incorporating such variability, the training process aims to enhance the model's ability to generalize across different scenarios, ensuring reliable recognition and identification. The datasets were carefully curated to include high-quality images that effectively represent the features necessary for accurate face detection and classification. This comprehensive approach is expected to improve the model's robustness and overall performance.
+
+Table 4: Confusion Matrix Formula
+Formula For	Formula
+Precision	 
+False Acceptance Rate (FAR)	 
+False Rejection Rate (FRR)	 
+Recall	 
+
+Table 5 shows the formulas for the confusion matrix. It also shows how to get the average accuracy percentage, precision, FAR, Recall, and FRR. The researchers used the formula for accuracy to calculate the individual accuracy for each test. Accuracy is computed by dividing the total number of correct predictions (True Positives and True Negatives) by the total number of samples evaluated. 
+
+
+Table 4: Accuracy Formula
+Accuracy Formula
+Formula For	Formula
+Test 1	 
+Test 2	 
+Accuracy	 
+Table 5 shows the computation for the accuracy for both tests, then, the researchers calculated the overall accuracy by finding the average of the two test accuracies. This average accuracy percentage gives a summarized performance of the face recognition system across both tests; it shows that the system achieved a combined accuracy which will be the total accuracy. This method of calculating average accuracy is often used when multiple datasets or tests are involved, allowing researchers to evaluate the system’s performance across different conditions or face sets.
+ 
+Pose Estimation Training
+Table 6: Pose Estimation Datasets for Training
+ 	 	 	 
+ 	 	 	 
+ 	 	 	 
+ 	 	 	 
+ 	 	 	 
+	
+Table 6 provides a detailed overview of the diverse datasets utilized for training the pose estimation model. These datasets encompass a wide variety of images; each annotated with key attributes essential for the training process. By including images in different environments, lighting conditions, and with varying poses, the model is trained to handle real-world scenarios more effectively.
+The variety within the datasets ensures that the pose estimation model is robust and adaptable. This diversity is crucial for the model's ability to accurately identify and analyze human poses across different contexts. Incorporating images from multiple sources also helps in minimizing biases and improving the overall accuracy of the model. Moreover, the datasets are structured to cover a comprehensive range of motions and postures, which are integral to achieving high precision in pose estimation. By meticulously curating these images, the training process benefits from a rich and representative sample of human movements. As a result, the pose estimation model becomes more reliable and efficient in practical applications.
+Pose Estimation Accuracy’s Formula
+Table 6: Regression Evaluation Formula
+Formula For	Formula
+per angles		 
+per frames	 
+per chunks	 
+Accuracy	 
+Mean Absolute Error (MAE)	 
+Root Mean Squared Error (RMSE)	 
+Euclidean Distance	 
+
+Table 7 shows the angle difference function, which calculates the absolute difference between two angles (in degrees), providing the angular difference between the two angles. The first angle, angle1, comes from the trained model’s reference data, while angle2 is the input from the test data provided by the user. The similarity between two sets of angles (one from the test input and one from the reference data) is calculated by comparing each corresponding angle and finding the average difference. Here, “n” represents the number of angles being compared, with “test_anglei” being the angle from the test input and “ref_anglei” representing the corresponding reference angle. The metric is further computed over multiple frames, with the average frame similarity being determined. 
+The final similarity score, expressed as a percentage, is derived by comparing the joint angles in each frame of the test video to the reference data. For each frame, the differences in angles (e.g., for the left elbow, right elbow, etc..) are calculated, normalized into a similarity percentage, and then averaged over all frames to give an overall similarity percentage. A higher similarity score indicates better alignment between the test video and the reference.
+Additionally, Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), and Euclidean Distance are used as supplementary metrics to assess the accuracy of pose estimations. RMSE is a widely used error metric that calculates the square root of the average squared differences between predicted and actual values. This metric tends to penalize larger errors more heavily, making it a useful measure when the emphasis is on minimizing large deviations. A lower RMSE value indicates a better match between the predicted and reference angles. MAE, on the other hand, calculates the average of the absolute differences between predicted and actual values, treating all errors equally without disproportionately penalizing larger errors. 
+MAE provides a simpler error measure, offering a general sense of the average deviation from the reference data. Finally, Euclidean Distance measures the straight-line distance between corresponding landmarks in 3D space (e.g., wrist, elbow), helping quantify how far the predicted positions of landmarks are from the reference positions.	By using these metrics in combination with the angle similarity scores, a comprehensive evaluation of the pose estimation system is achieved, enabling a detailed assessment of both angular accuracy and spatial precision. These combined metrics ensure that the system can be effectively used for applications such as rehabilitation, where accurate and reliable pose tracking is essential.
+ 
+CHAPTER FOUR
+ RESULTS AND DISCUSSION
+The objective of this project was to enhance virtual-assisted therapy sessions through a combination of advanced technologies. Specifically, the researchers implemented facial recognition to ensure user identification during exercise sessions, thereby preventing unauthorized individuals from participating and reducing the potential for cheating. Additionally, the developers utilized the Mediapipe library to integrate a mobility analysis system aimed at optimizing exercise effectiveness and efficiency for post-stroke patients. Finally, the researchers developed an alarm system that triggers notifications to surrounding individuals in the event of a patient’s emergency situation, ensuring timely intervention during virtual-assisted therapy. The following sections will discuss the results of these implementations and analyze their impact on the overall effectiveness of the rehabilitation process.
+4.1	Results and Discussion
+4.1.1	Face Recognition Results: Identity Verification Status
+Table 8: Face Recognition 
+Recognized	Not Recognized
+ 	 
+The table 8 provides images that illustrate two distinct outcomes of the face recognition process: The first image demonstrates a successful identification where the system recognizes the individual and displays their name alongside a checkmark. This indicates a positive match with the stored facial data, confirming the system has accurately verified the person's identity.
+In contrast, the second image shows an unsuccessful recognition attempt, where the system fails to identify the person. Consequently, a pop-up message appears, stating "You have not been recognized, please check your setup or position." This alert advises the user to reassess their camera setup or adjust their position to improve the likelihood of a successful recognition on subsequent attempts. These scenarios exemplify the face recognition system's capability to provide immediate and clear feedback on identity verification status.
+	Confusion Matrix Metrics	
+	Precision (%)	Accuracy (%)	False Acceptance Rate (FAR)	False Rejection Rate (FRR)	Recall	Processed Images
+test 1	100.00%	100.00%	0%	0%	100.00%	10
+test 2	100.00%	91.30%	0%	9.09%	91.30%.	23
+total	100.00%	95.65%	0%	4.545%	95.65%	33
+4.1.2	Face Recognition’s Metric Result
+Table 9: Face Recognition Metrics
+
+Table 9 shows the metrics of face recognition; the first test of the face recognition system achieved a perfect result with 100% accuracy. All 10 faces in the dataset were successfully identified, with all of them being recognized as known faces. No unknown faces were detected, ensuring that the system correctly identified every sample. This confirms the system's ultimate effectiveness with the current dataset. Further tests with additional, more diverse datasets will be necessary to delve deeper into the system’s performance across different conditions. In Test 2, the face recognition system successfully identified 21 out of the 23 faces, resulting in an accuracy of approximately 91.30%. Two faces were not recognized as known, indicating the system's performance dropped slightly compared to Test 1. This suggests that the system may need further calibration or additional training data to handle unknown or less familiar faces more effectively.
+Pose Estimation First Feedback	Pose Estimation Second Feedback	Successfully Completed
+ 	 	 
+4.1.3	Pose Estimation and Feedback
+Table 10: Pose Estimation Feedback and Completion Summary
+
+Table 10 shows the variety of situations, the pose estimation system provides real-time feedback to users to ensure proper form during exercises. In the first image, the system evaluates the user's pose as they lower their arms carefully and assigns a grade based on the accuracy of the movement. The user receives a 40% grade, indicating areas for improvement in their technique. This immediate feedback helps users understand how well they are performing the exercise and where adjustments are needed for better accuracy.
+The second image demonstrates further feedback, where the user is prompted to raise their arms gently. The system evaluates this movement and provides a grade of 88.25%, reflecting a highly accurate execution of the pose. Finally, upon completing the exercise, a pop-up message appears, congratulating the user with the message, "Congratulations! You have successfully completed the exercise." After acknowledging this message by clicking the "OK" button, the system records the exercise completion data in the user's reports, ensuring that all details of the session are documented for future reference. This comprehensive feedback loop supports users in improving their exercise form and tracking their progress effectively.
+
+ 
+4.1.4	Pose Estimation’s Metric Result
+Table 11: Pose Estimation Metrics
+	Regression Evaluation Metrics Metrics
+Chunks	Accuracy (%)	Average Mean Absolute Error (°)	Average Root Mean Squared Error (°)	Average Landmark Distance (mm)	Number of Frames Processed
+1	79.0	0.7784	0.9346	37.0832	25
+2	92.0	0.6551	0.8476	35.7679	25
+3	84.0	0.5545	0.8057	35.9814	25
+4	98.0	0.2024	0.2607	37.3243	23
+Total	88.25	0.5476	0.7121	36.5392	98
+
+Table 11 shows the evaluation of the pose estimation system and shows promising results, with an overall accuracy of 88.25% based on the number of frames that were accurately processed. This indicates that the system performs well, as it closely matches reference in terms of joint angles. The Mean Absolute Error (MAE), which measures the average difference between the estimated and reference joint angles, is 0.5476°. 
+This suggests that, on average, the system's predictions are quite close to the reference angles, with only small deviations across the frames. While the MAE reflects the overall accuracy, the Root Mean Absolute Error (RMAE) value of 0.7121° is slightly higher, indicating that the system is more sensitive to larger errors. This metric penalizes frames with significant deviations more heavily, which means that although most frames are accurate, the system occasionally produces larger errors. Finally, the Average Landmark Distance is 36.5392 mm, showing that on average, the key body landmarks in the estimated poses are placed about 36.5392 millimeters away from their corresponding positions in the reference. While this distance is reasonable, it highlights some room for improvement in the precision of 3D landmark placement, which could be influenced by factors like depth estimation errors or occasional misalignments in landmark detection.
+4.1.5	Alert: Alarm Notification
+Figure 9 shows the alarm notification system, the alarm notification is an integral safety feature designed to enhance user security during pose estimation exercises. This system utilizes an mp3 alarm that is triggered if the pose estimation process detects no movement from the user for a duration of 60 seconds. The primary function of this alarm is to alert the surrounding environment and capture the attention of anyone nearby. 
+ 
+Figure 9: Alarm Notification Trigger
+This alert mechanism is particularly crucial in emergency situations, where the user may be incapacitated or in distress and unable to call for help. By triggering a loud and noticeable alarm, the system ensures that others in the vicinity are promptly notified, enabling them to provide immediate assistance. This feature not only enhances the safety of the user but also adds an additional layer of reassurance.
+4.2	Uplift - Mobility Mobile Application UI
+	4.2.1	Login Page/Register
+See figure 10, it shows the Login Page System, the Login Page serves as the initial interface of the application, acting as the entry point for users. Upon accessing the application, users are presented with the login page where they can input their credentials to gain access to the system. If users already have an existing account, they simply enter their registered username and password to log in.
+   
+Figure 10: Login Page
+For users who do not yet have an account, the login page provides an option to register. By selecting the registration link or button, users are redirected to a sign-up page where they can create a new account by providing necessary details, such as their name, email address, and password. This registration process ensures that users are able to securely store their data and preferences within the application.
+4.2.2 Home Page
+   
+Figure 11: Homepage
+See figure 11, it shows the homepage, Upon successful login, users gain access to the full array of features within the system. This includes a comprehensive suite of exercises tailored to enhance mobility, interactive maps for navigation and location-based services, a progress tracking module to monitor their improvement over time, and customizable settings that allow users to personalize their experience according to their individual needs and preferences. This holistic approach ensures that users can effectively engage with the system and utilize all available resources to support their exercise journey.
+
+4.2.3	Exercise
+  
+Figure e12: Exercise Page
+	See figure 12, as it shows the Exercise Page constitutes the central feature of the application, providing users with access to a diverse range of exercises designed to support their rehabilitation. This page is not only a platform for performing exercises but also incorporates engaging educational content that enhances users' understanding of each activity. It includes valuable tips and techniques aimed at improving the efficiency and effectiveness of the exercises. By offering this comprehensive information, the Exercise Page empowers users to maximize their engagement and outcomes, ensuring that they can perform each exercise with confidence and clarity.
+ 
+Chapter Five
+CONCLUSIONS AND RECOMMENDATIONS
+5.1	Conclusions
+	The objectives of this study were successfully achieved, with a primary focus on enhancing the efficacy of rehabilitation exercises for stroke patients through the development of the Uplift Mobility mobile application. This application was designed to offer an interactive platform that encourages exercise adherence and improves rehabilitation outcomes.
+The integration of facial recognition technology within the Uplift Mobility mobile application has proven effective in ensuring that only authorized individuals can participate in exercise sessions. With a facial recognition accuracy of 95.65%, the system reliably identifies users, preventing unauthorized access and minimizing the risk of cheating. This feature not only adds a layer of security to the platform but also ensures that patients are continuously monitored throughout their rehabilitation journey, further promoting adherence to exercise protocols.
+The implementation of mobility analysis using the Mediapipe library and Teachable Machine has significantly enhanced the exercise experience for post-stroke patients. The pose estimation accuracy of 88.25% indicates that the application can effectively track and assess the user's movements, offering real-time feedback to optimize the effectiveness and efficiency of each exercise session. By providing detailed insights into movement patterns and performance, this feature helps users better understand their progress and tailor their rehabilitation activities accordingly
+The alarm system integrated into the Uplift Mobility mobile application serves as a vital safety feature for post-stroke patients during virtual-assisted therapy sessions. The system provides immediate notifications to surrounding individuals in the event of a medical emergency, ensuring a swift response to potential health risks. By enhancing patient safety during rehabilitation, this feature adds an important layer of support, giving both patients and their caregivers peace of mind during exercise sessions.
+The development of the Uplift Mobility mobile application effectively met the general objective of creating a platform to monitor and enhance the mobility of post-stroke patients with the face recognition accuracy of 95.65%. And for pose estimation accuracy is 88.25%. By integrating real-time data collection, personalized exercise regimens, and immediate feedback, the application was designed to improve patient outcomes and provide critical support throughout the rehabilitation process. These features proved to be particularly valuable for patients undergoing post-stroke rehabilitation, offering both motivation and guidance during their recovery journey.
+Although the implementation of pose recognition using MediaPipe and face recognition via Dlib, supported by OpenCV, showed significant potential, it is important to note that these systems were not fully operational in the final version of the application. However, early feedback suggests that these features, with further refinement and updates, could significantly enhance the overall performance and user experience of the application. Future iterations based on ongoing user input are expected to resolve any current limitations and optimize the functionality of these critical features.
+
+5.2	Recommendations
+	The Uplift Mobility mobile application offers a groundbreaking approach to post-stroke rehabilitation by integrating facial recognition, mobility analysis, and an emergency alarm system. With a 95.65% accuracy in facial recognition, it ensures secure therapy sessions by restricting access to authorized users. The mobility analysis system, powered by Mediapipe and Teachable Machine, provides 88.25% accurate real-time feedback, helping patients refine their movements for better recovery. Additionally, the emergency alarm system enhances patient safety by immediately alerting caregivers or nearby individuals in case of a medical emergency.
+
+Given its innovative features and proven effectiveness, the Uplift Mobility application should be widely adopted in rehabilitation centers, telemedicine platforms, and personal therapy programs. Healthcare providers and policymakers can integrate this technology into remote therapy sessions to enhance patient outcomes and safety.
+
+
+ 
+
+REFERENCES
+Marc Gelian E. Ante, Reggie Gustilo, Anna Sheila I. Crisostomo, (2024).	
+Human activity recognition using supervised machine learning techniques. AIP Conf. Proc. 8 February 2024; 2898 (1): 030054. 
+https://doi.org/10.1063/5.0194457
+
+Dela Cruz, J. M., Feliciano, A., Hinay, A. J., & Regala, L. I. K. (2024). 
+ResQMe: An Emergency Services Locator for Manila’s Hospitals, Police, and Fire Stations Utilizing the A* Algorithm
+https://www.researchgate.net/figure/ResQMe-System-Design_fig2_382532953
+
+Anandan, K., & Hameed, S. (2024). 
+Facial Recognition-Based Attendance System.
+https://www.researchgate.net/publication/384423977_Facial_Recognition-
+
+Mohd Amer K. (2024). 
+Access Control Using Facial Recognition. Indian Scientific Journal of Research in Engineering and Management, 08(04), 1–5. 
+https://doi.org/10.55041/ijsrem30467
+
+Khan, M. A., Mohd Zaki, H. F. B., Mohd Ibrahim, A. B., Hoq, S. M. A., (2024). 
+A Systematic Review on Facial Detection and Recognition: Limitations and Opportunities. Asian Journal of Electrical and Electronic Engineering, 4(2), 61–76. https://doi.org/10.69955/ajoeee.24.v4i2.70
+
+Moneera Alnamnakani, Mahmoodi, S., & Nixon, M. (2024). 
+Using Facial Attractiveness as a Soft Biometric Trait to Enhance Face Recognition 
+https://doi.org/10.1007/978-981-97-2059-0_2
+
+F. G. Destreza, R. A. Concepcion and M. B. Roxas, (2023).
+Sitting Posture Notification and Monitoring System: A sensor application
+https://doi.org/10.1109/ICSET59111.2023.10295077
+
+
+
+
+Dedhia, U., Bhoir, P., Ranka, P., & Kanan, P. (2023). 
+Pose estimation and virtual gym assistant using MediaPipe and machine learning. https://doi.org/10.1109/NMITCON57842.2023.10275938
+
+J. R. Balbin, F. L. Valiente, C. R. S. D. Cruz, J. R. G. Gregorio, (2023).
+Bowler's Real-Time Posture Assessment Using Integrated Moving Body and Frame Difference with Kinect and Image Processing Algorithms  
+https://doi.org/10.1109/HNICEM60674.2023.10589029
+
+Oraño, J.F.V., Padao, F.R.F., Malangsa, R.D. (2023). 
+A Deep Convolutional Neural Network for Skin Rashes Classification. In: Krouska, A., Troussas, C., Caro, J. (eds) Novel & Intelligent Digital Systems. https://doi.org/10.1007/978-3-031-17601-2_33
+
+P. Reyes, M. Jefferson Gabutan, A. P. Villacarlos, (2023).
+Motion: A Mobile Application for Yoga Pose Accuracy and Consistency 
+https://doi.org/10.1109/ICECCME57830.2023.10252614.
+
+Hilman Zafri bin Mazlan. (2022). 
+FitAI: Home workout posture analysis using computer vision. https://utpedia.utp.edu.my/id/eprint/24032/
+
+Sengupta, A., & Cao, S. (2022). 
+mmPose-NLP: A natural language processing approach to precise skeletal pose estimation using mmWave radars. 
+https://doi.org/10.1109/SAS54572.2022.9723439
+
+Ignacio, A. E. (2021). 
+Implementation of an Android Mobile Location-Based Service Application for General Auto Repair Shops.
+https://doi.org/10.11594/ijmaber.02.01.07
+
+Ghadekar, P. P., Akolkar, P., Bijawe, S., Pandey, H., Mahajani, M., & Shinde, A. (2021).
+Real-Time Virtual Fitness Tracker and Exercise Posture Correction. https://www.researchgate.net/publication/358055616 
+
+
+Steven Dg. Boncolmo, Calaquian, E. V., & Caya, V. C. (2021). 
+Gender Identification Using Keras Model Through Detection of Face. https://doi.org/10.1109/hnicem54116.2021.9731814
+
+Smith, M., & Miller, S. (2021). 
+The ethical application of biometric facial recognition technology. 
+https://doi.org/10.1007/s00146-021-01199-9
+
+Bague, L., Jorda, R. Jr., Fortaleza, B., Evanculla, A., Paez, M. A., (2020). 
+Recognition of Baybayin (Ancient Philippine Character) Handwritten Letters Using VGG16 Deep Convolutional Neural Network 
+https://www.dlsu.edu.ph/wp-content/uploads/pdf/conferences/research-congress-proceedings/2024/HCT-13.pdf
+
+Guoqing Wu, Xi Chen, Jixian Lin, Yuanyuan Wang, & Jinhua Yu. (2020). 
+Identification of invisible ischemic stroke in noncontrast CT based on novel two-stage convolutional neural network model
+https://aapm.onlinelibrary.wiley.com/doi/abs/10.1002/mp.14691
+
+Sanchez, E. K. M., Linsangan, N. B., & Angelia, R. E. (2020). 
+Three Triangle Method for Face Recognition using Dlib and OpenCV
+https://doi.org/10.1109/HNICEM51456.2020.9400134
+
+ J. T. Rosado and A. A. Hernandez, (2020).
+An Empirical Examination of the Factors Influencing the Intention to Use Health Information System with Decision Support for Stroke Risk Assessment and Prediction. 
+https://doi.org/ 10.1109/CSPA48992.2020.9068714.
+
+Reynoso, M. M., & Torres, A. M. (2020). 
+Tempus-A Facial Recognition Technology in Attendance Monitoring.
+https://doi.org/10.52006/main.v3i2.214
+
+Shaoqing Ren, Kaiming He, Ross Girshick, & Jian Sun. (2015). 
+Faster R-CNN: Towards real-time object detection with region proposal networks. https://arxiv.org/abs/1506.01497
+
+Singh, P., Yadav, I., Agrawal, P., & Singh, V. P. (2023). 
+Evaluating the robustness of human pose estimation models: A comparative analysis. https://doi.org/10.1109/ICCON57840.2023.10522219
+
+Hwang, K., Asif, T. B., & Lee, T. (2022). 
+Choice-driven location-allocation model for healthcare facility location problem. https://doi.org/10.1007/s10696-021-09441-8
+
+Sengupta, A., Jin, F., Zhang, R., & Cao, S. (2019). 
+A review of urban transportation network design problems. https://arxiv.org/abs/1911.09592
+
+Irfan, I., & Muthalib, M. A. (2022). 
+Implementation of human pose estimation using angle calculation logic on the elder of the hands as a fitness repetition. 
+https://doi.org/10.52088/ijesty.v2i4.346
+	
+Sui, Y., Luo, J., Dong, C., Zheng, L., Zhao, W., Zhang, Y., Xian, (2021). 
+Implementation of regional Acute Stroke Care Map increases thrombolysis rates for acute ischaemic stroke in Chinese urban area in only 3 months. https://svn.bmj.com/content/6/1/87
+
+Hwang, K., Asif, T. B., & Lee, T. (2022). 
+Choice-driven location-allocation model for healthcare facility location problem. https://link.springer.com/article/10.1007/s10696-021-09441-8
+
+Kotte, H., Daiber, F., Kravcik, M., & Duong-Trung, N. (2024). 
+FitSight: Tracking and feedback engine for personalized fitness training
+https://dl.acm.org/doi/abs/10.1145/3627043.3659547
+
+Cristian Militaru, Maria-Denisa Militaru, & Kuderna-Iulian Benta. (2020). 
+Physical exercise form correction using neural networks
+https://dl.acm.org/doi/abs/10.1145/3395035.3425302
+
+Nitesh Sonwani, Aryan Pengwar. (2020). 
+Auto-Fit: Workout tracking using pose-estimation and DNN. https://www.scribd.com/document/471454519/167-173-Tesma501-IJEAST
+APPENDIX A: SOURCE CODE
+
+Objective 1 Source Code:
+
+import dlib
+import cv2
+import numpy as np
+import os
+# Load Dlib's face detector and face recognition model
+detector = dlib.get_frontal_face_detector()
+ 
+# Directory to save encodings
+encoding_dir = r'E:\python\python_projects\yolov7\latest\datas\encodings'
+# Function to encode faces from a directory
+def encode_faces_from_directory(image_folder):
+    encodings = []
+    names = []
+  
+    for filename in os.listdir(image_folder):
+        if filename.lower().endswith(('.jpg', '.png')):  # Handle case sensitivity
+            image_path = os.path.join(image_folder, filename)
+            img = cv2.imread(image_path)
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            faces = detector(gray)
+            if faces:
+                face = faces[0]  # Take the first detected face
+                shape = predictor(gray, face)  # Get the shape of the detected face
+                # Ensure the shape is valid before computing the descriptor
+                if shape.num_parts == 68:  # Check if the expected number of landmarks is detected
+                    encoding = recognizer.compute_face_descriptor(img, shape)
+                    encodings.append(np.array(encoding))
+                    name = os.path.basename(image_path).split('.')[0]  # Use the filename as the name
+                    names.append(name)
+                else:
+                    print(f"Unexpected number of landmarks detected in {filename}. Expected 68, got {shape.num_parts}.")
+            else:
+                print(f"No face detected in {filename}.")  # Log when no face is detected
+    return encodings, names
+# Example usage
+image_folder = r'E:\python\python_projects\yolov7\latest\medias\images'  # Update this path to your folder
+face_encodings, face_names = encode_faces_from_directory(image_folder)
+# Save encodings for later use
+if face_encodings:
+    np.save(os.path.join(encoding_dir, 'face_encodings.npy'), face_encodings)
+    np.save(os.path.join(encoding_dir, 'face_names.npy'), face_names)
+# Load saved encodings
+face_encodings = np.load(os.path.join(encoding_dir, 'face_encodings.npy'), allow_pickle=True)
+face_names = np.load(os.path.join(encoding_dir, 'face_names.npy'), allow_pickle=True)
+# Process all images in a specified folder
+test_image_folder = r'E:\python\python_projects\yolov7\latest\medias\my_photos'  # Update this to your test images folder
+ 
+for filename in os.listdir(test_image_folder):
+    if filename.lower().endswith(('.jpg', '.png')):  # Handle case sensitivity
+        image_path = os.path.join(test_image_folder, filename)
+        frame = cv2.imread(image_path)
+        if frame is None:
+            print(f"Error loading image: {filename}.")
+            continue
+        else:
+            print(f"Image loaded successfully: {filename}.")
+        # Convert the frame to grayscale
+        gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        faces = detector(gray_frame)
+        print(f"Detected {len(faces)} face(s) in {filename}.")  # Debugging output
+        for face in faces:
+            try:
+                shape = predictor(gray_frame, face)  # Use the grayscale frame
+                # Check if the shape is valid before computing the descriptor
+                if shape.num_parts == 68:
+                    # Compute the face descriptor
+                    encoding = recognizer.compute_face_descriptor(frame, shape)
+                    # Compare with known faces
+                    matches = []
+                    for known_face in face_encodings:
+                        match = np.linalg.norm(np.array(encoding) - np.array(known_face)) < 0.6  # Adjust the threshold as needed
+                        matches.append(match)
+                    if any(matches):
+                        name_index = matches.index(True)
+                        name = face_names[name_index]
+                    else:
+                        name = "Unknown"
+                    # Draw rectangles and labels
+                    cv2.rectangle(frame, (face.left(), face.top()), (face.right(), face.bottom()), (0, 255, 0), 2)
+                    cv2.putText(frame, name, (face.left(), face.top() - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                else:
+                    print("Invalid shape detected for recognition.")
+            except Exception as e:
+                print(f"Error during face recognition in {filename}: {e}")
+        # Resize the image for display
+        max_width = 800
+        max_height = 600
+        # Get the dimensions of the frame
+        height, width = frame.shape[:2]
+        # Calculate the scaling factor
+        scale = min(max_width / width, max_height / height)
+        # Resize the frame
+        new_dimensions = (int(width * scale), int(height * scale))
+        resized_frame = cv2.resize(frame, new_dimensions)
+        # Display the resulting image
+        cv2.imshow('Face Detection and Recognition', resized_frame)
+        cv2.waitKey(0)  # Wait until a key is pressed
+cv2.destroyAllWindows()
+# Load saved face encodings and names
+encoding_dir = r'E:\python\python_projects\yolov7\latest\datas\encodings'
+face_encodings = np.load(os.path.join(encoding_dir, 'face_encodings.npy'), allow_pickle=True)
+face_names = np.load(os.path.join(encoding_dir, 'face_names.npy'), allow_pickle=True)
+
+Objective 2 Source Code:
+
+import cv2
+import mediapipe as mp
+import pandas as pd
+import math
+import numpy as np
+# Load the CSV data with landmarks and angles
+csv_file = r'E:\python\python_projects\yolov7\latest\datas\csv_landmarks\pose_landmarks_and_angles.csv'
+df = pd.read_csv(csv_file)
+# Initialize MediaPipe Pose
+mp_pose = mp.solutions.pose
+pose = mp_pose.Pose(static_image_mode=False, min_detection_confidence=0.5)
+# Video feed (use the webcam instead of a video file)
+cap = cv2.VideoCapture(0)  # 0 corresponds to the default webcam
+# Function to calculate angle between three points
+def calculate_angle(A, B, C):
+    """Calculate the angle ABC (in degrees) between points A, B, and C."""
+    BA = [A.x - B.x, A.y - B.y]
+    BC = [C.x - B.x, C.y - B.y]
+    cosine_angle = (BA[0] * BC[0] + BA[1] * BC[1]) / (math.sqrt(BA[0] ** 2 + BA[1] ** 2) * math.sqrt(BC[0] ** 2 + BC[1] ** 2))
+    angle = math.degrees(math.acos(cosine_angle))
+    return angle
+# Function to compute the Euclidean distance between two angles
+def angle_difference(angle1, angle2):
+    return abs(angle1 - angle2)
+# Function to compute similarity score (higher is better)
+def compute_similarity(angles1, angles2):
+    total_diff = 0
+    count = 0
+    for angle1, angle2 in zip(angles1, angles2):
+        total_diff += angle_difference(angle1, angle2)
+        count += 1
+    return 100 - (total_diff / count)  # Normalize to a percentage (0-100)
+# Function to provide feedback based on angle differences
+def give_feedback(test_angles, ref_angles):
+    feedback = []
+    for i, (test_angle, ref_angle) in enumerate(zip(test_angles, ref_angles)):
+        diff = abs(test_angle - ref_angle)
+        if diff > 10:  # Threshold for providing feedback, adjust as needed
+            joint = ["Left Elbow", "Right Elbow", "Left Knee", "Right Knee"]
+            feedback.append(f"Adjust {joint[i]}: Difference of {diff:.2f} degrees.")
+    # Return the first feedback message if available, otherwise None
+    return feedback[0] if feedback else None
+try:
+    frame_index = 0
+    total_similarity = 0
+    num_frames = 0
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret:
+            break
+        # Convert the frame to RGB for MediaPipe
+        rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        results = pose.process(rgb_frame)
+        if results.pose_landmarks:
+            # Get landmarks and calculate angles in the current frame
+            landmarks = results.pose_landmarks.landmark
+            left_elbow_angle = calculate_angle(
+                landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value],
+                landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value],
+                landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value]
+            )
+            right_elbow_angle = calculate_angle(
+                landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value],
+                landmarks[mp_pose.PoseLandmark.RIGHT_ELBOW.value],
+                landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value]
+            )
+            left_knee_angle = calculate_angle(
+                landmarks[mp_pose.PoseLandmark.LEFT_HIP.value],
+                landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value],
+                landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value]
+            )
+            right_knee_angle = calculate_angle(
+                landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value],
+                landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value],
+                landmarks[mp_pose.PoseLandmark.RIGHT_ANKLE.value]
+            )
+            # Get reference angles from CSV for the current frame index
+            try:
+                ref_row = df.iloc[frame_index]
+                # Extract angles from the reference CSV
+                ref_angles = [
+                    ref_row['Left_Elbow_Angle'],
+                    ref_row['Right_Elbow_Angle'],
+                    ref_row['Left_Knee_Angle'],
+                    ref_row['Right_Knee_Angle']
+                ]
+                # Compare angles between the test video and the reference CSV
+                test_angles = [left_elbow_angle, right_elbow_angle, left_knee_angle,     right_knee_angle]
+                # Compute similarity for this frame
+                frame_similarity = compute_similarity(test_angles, ref_angles)
+                total_similarity += frame_similarity
+                num_frames += 1
+                # Provide feedback if the similarity is low
+                feedback_message = give_feedback(test_angles, ref_angles)
+                if feedback_message:
+                    cv2.putText(frame, feedback_message, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+                else:
+                    cv2.putText(frame, "Good form!", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+            except IndexError:
+                # If frame index exceeds the reference data, reset or loop
+                frame_index = 0
+        # Increment frame index for CSV reference
+        frame_index += 1
+        # Show the current frame (without skeleton)
+        cv2.imshow('Pose Feedback', frame)
+        # Wait for user to press 'q' to quit or continue with the video
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+    # Calculate average similarity across all frames
+    average_similarity = total_similarity / num_frames if num_frames > 0 else 0
+    print(f"Accuracy: {average_similarity:.2f}%")
+finally:
+    # Release resources
+    cap.release()
+    cv2.destroyAllWindows()
+ 
+
+
+Objective 3 Source Code:
+
+import cv2
+import time
+import mediapipe as mp
+import pygame
+import signal
+import sys
+import numpy as np
+# Initialize Pygame mixer for sound
+pygame.mixer.init()
+# Load the sound file
+mp_pose = mp.solutions.pose
+pose = mp_pose.Pose(static_image_mode=False, min_detection_confidence=0.7)
+# Function to handle cleanup on exit
+def signal_handler(sig, frame):
+    print("Exiting gracefully...")
+    cap.release()  # Release the camera
+    cv2.destroyAllWindows()  # Close all OpenCV windows
+    sys.exit(0)  # Exit the program
+# Register the signal handler
+signal.signal(signal.SIGINT, signal_handler)
+def calculate_distance(landmarks):
+    if landmarks:
+        # Calculate the average distance between key points
+        distances = []
+        for i in range(len(landmarks)):
+            for j in range(i + 1, len(landmarks)):
+                point1 = np.array([landmarks[i].x, landmarks[i].y])
+                point2 = np.array([landmarks[j].x, landmarks[j].y])
+                distances.append(np.linalg.norm(point1 - point2))
+        return np.mean(distances)
+    return 0
+def main():
+    global cap
+    cap = cv2.VideoCapture(0)  # Open the default camera
+    last_motion_time = time.time()  # Track the last time motion was detected
+    previous_dist = 0  # Track previous distance for movement comparison
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            print("Failed to capture video")
+            break
+        # Flip the frame horizontally for a later selfie-view display
+        frame = cv2.flip(frame, 1)
+        # Convert the BGR image to RGB
+        rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        # Process the image for pose detection
+        pose_results = pose.process(rgb_frame)
+        # Flag to check if any motion is detected
+        motion_detected = False
+        # Calculate movement based on detected pose landmarks
+        if pose_results.pose_landmarks:
+            # Calculate the average distance between landmarks
+            current_dist = calculate_distance(pose_results.pose_landmarks.landmark)
+            # Reset last_motion_time only if significant movement is detected
+            if abs(current_dist - previous_dist) > 0.01:  # Adjust threshold as needed
+                last_motion_time = time.time()
+                motion_detected = True
+                print("Significant motion detected!")  # Debugging line
+            previous_dist = current_dist
+        # Check elapsed time without movement
+        elapsed_time = time.time() - last_motion_time
+        print(f"Elapsed time without significant motion: {elapsed_time:.2f} seconds")  # Debugging line
+        if elapsed_time >= 5:  # If no significant movement for 5 seconds
+            print("No significant movement detected for 5 seconds! Playing warning sound...")
+            warning_sound.play()  # Play the warning sound
+            time.sleep(2)  # Wait for a couple of seconds before stopping the sound
+            warning_sound.stop()
+            last_motion_time = time.time()  # Reset last motion time after playing the sound
+        # Visual feedback for motion detection
+        if motion_detected:
+            cv2.rectangle(frame, (10, 10), (250, 50), (0, 255, 0), -1)  # Green box
+            cv2.putText(frame, "Motion Detected!", (15, 35), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+        # Show the image without landmarks
+        cv2.imshow('Motion Detection', frame)
+        # Exit on 'q' key press
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+    cap.release()
+    cv2.destroyAllWindows()
+if __name__ == "__main__":
+    main()
+ 
+ 
+ 
+APPENDIX C: BIONOTE
+
+Jonn Ian B. Sabar 
+
+is a student at the Pamantasan ng Lungsod ng Maynila, pursuing a Bachelor of Science in Information Technology. His dedication to academic excellence has earned him the title of Dean's Lister for the 1st and 2nd semesters from 2021 to 2025. He also graduated with honors from the National Teachers College.
+
+With two years of experience as a freelance full-stack web developer, Jonn Ian B. Sabar has expertise in programming languages such as C++, Python, PHP, and Java. His skill set includes front-end technologies like HTML, CSS, and Bootstrap, as well as database management using MySQL. He is also proficient in utilizing tools like Power BI, Microsoft Office, and Git for enhanced workflow and data analysis.
+
+In addition to his technical capabilities, Jonn Ian B. Sabar excels in project management, teamwork, public relations, time management, and critical thinking. Fluent in both English and Filipino, he is highly adaptable and resilient, ready to embrace new challenges with enthusiasm. Driven by a passion for technology and continuous learning, Jonn Ian B. Sabar is eager to bring his skills and dedication to future professional opportunities.
+ 
+Kenneth Mijares 
+is an aspiring software developer and Information Technology student at Pamantasan ng Lungsod ng Maynila, set to graduate in 2025. A strong foundation in Flutter development, Python, Firebase, and machine learning, he has worked on projects that blend AI, computer vision, and mobile.
+One of his notable projects is Uplift: Mobility Analysis for Post-Stroke Recovery, an Android application that utilizes pose estimation to assist in rehabilitation exercises. This project integrates Teachable Machine, Regula SDK for face verification, and Firebase for real-time data storage, ensuring a seamless and secure user experience. He has also developed a real-time face recognition system using Python, OpenCV, and Dlib, applying machine learning techniques to enhance security and authentication processes.
+
+Beyond academics, Kenneth gained hands-on experience as a Virtual Assistant at BurnTasks, where he managed social media content creation, document formatting, and project workflow organization. His ability to analyze problems, optimize workflows, and develop innovative solutions highlights his versatility in both technical and operational aspects of software development.
+
+Kenneth is passionate about AI-driven applications, backend systems, and mobile development. With expertise in Flutter, Web Development, and cloud integration, he continuously hones his skills to create efficient and scalable solutions. His commitment to learning and innovation makes him an asset in the fields of software development and artificial intelligence.
+ 
+James Serafin Tabañag 
+is an Information Technology student with a strong passion and growing expertise in UI/UX development. Currently pursuing Information Technology at Pamantasan ng Lungsod ng Maynila, set to graduate at 2026, James is dedicated to crafting intuitive and visually appealing user interfaces.
+
+Driven by a keen interest in user-centered design, James has honed skills in HTML, CSS, and JavaScript, and is actively exploring modern front-end frameworks such as React, Angular, and Svelte. He possesses a solid understanding of UI/UX principles, including wireframing, prototyping, and usability testing, and strives to bridge the gap between design and functionality.
+
+James is a collaborative team player with a strong problem-solving mindset, eager to contribute to innovative projects that enhance user experiences. He is committed to continuous learning and staying abreast of the latest trends in UI/UX and web development.
+

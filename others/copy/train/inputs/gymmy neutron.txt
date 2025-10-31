@@ -1,0 +1,53 @@
+Enhancing Gym Workouts with Machine Learning-Driven Form Analysis
+
+
+
+The development of an "Enhancing Gym Workouts with Machine Learning-Driven Form Analysis"
+
+
+1. Lack of Knowledge: Newcomers may lack familiarity with gym equipment, proper exercise techniques, and workout routines.
+
+Why is understanding and maintaining proper form and technique crucial for gym goers in the gym, considering its impact on safety and effectiveness during exercises?
+
+
+
+2. Form and Technique: Proper form and technique are crucial for both safety and effectiveness, but newcomers may struggle to understand or maintain correct form during exercises.
+
+3. Fear of Injury: Concerns about injury due to incorrect form or overexertion can deter newcomers from fully engaging in workouts.
+
+4. Time Management: Balancing workout routines with other commitments can be a challenge, leading to inconsistency in attendance and progress.
+
+5. Cost Considerations: Gym memberships, personal training sessions, and specialized classes can be costly, posing a barrier for some newcomers.
+
+
+DFD lvl 0
+
+user - camera - database.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- camera (front or rear)
+- automatically will find the exercises/wrokout sa database.
+- grading the techniques or form of the user.
+- will show the target muscles.
+ 
+
+
+
+
+

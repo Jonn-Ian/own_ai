@@ -1,0 +1,32 @@
+please take a time to read the instruction before proceeding.
+
+create a venv first and proceed to install the required dependencies at required_dependencies folder.
+
+watch this video = https://www.youtube.com/watch?v=UU1WVnMk4E8
+==========================================First Step=========================================
+
+create vnev:
+python -m venv Core
+
+activate the venv:
+(name)/Scripts/activate
+
+make sure the pip is updated:
+(path)\python.exe -m pip install --upgrade pip
+
+download build tools before installing the the requirements.txt
+
+==========================================Install dependencies=========================================
+
+install cude, you'll need to utilize your gpu, and also install the torch using cuda
+
+choose your torch here: https://pytorch.org/get-started/locally/
+copy the prompt and put it into terminal
+11.8 cuda is good
+
+install dependencies:
+pip install -r (path)/requirements.
+
+==========================================step 2=========================================
+
+open jupyter notebook at terminal by using "jupyter notebook" prompt then make sure the ipynb is inside the venv by using this promp "python -m ipykernel install --user --name = Core --display-name "Core" "

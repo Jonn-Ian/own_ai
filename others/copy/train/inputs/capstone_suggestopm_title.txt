@@ -1,0 +1,56 @@
+Crop Disease Detection and Classification: 
+Create a machine learning model to identify diseases in crops based on images of leaves or plants, aiding in early detection and treatment.
+
+Medical Diagnosis Assistant: 
+Develop an AI system for diagnosing medical conditions based on symptoms and patient data.
+
+Music Genre Classification: 
+Develop a machine learning model to classify music into different genres based on audio features.
+
+Gesture Recognition for Sign Language: 
+Build a system that recognizes gestures in sign language and translates them into text or speech.
+
+Predictive Analytics for Retail Sales: 
+Use machine learning to forecast sales trends, optimize inventory management, and enhance pricing strategies in retail.
+
+Predictive Analytics for Student Performance: 
+Develop models to predict student performance and identify at-risk students based on academic records, behavior patterns, and external factors.
+
+Personalized Travel Recommendation System: 
+Create an AI-driven platform that recommends personalized travel destinations, activities, and itineraries based on user preferences, budget, and travel history.
+
+
+AI-powered Virtual Try-On for Fashion: 
+Develop an AI system that allows users to virtually try on clothing and accessories using augmented reality (AR) or computer vision techniques.
+
+Real-time Object Detection and Tracking: 
+Develop algorithms for real-time detection and tracking of objects in video streams, useful for applications in surveillance and robotics.
+
+Personalized Fitness and Nutrition Planner: 
+Develop an AI-driven platform that recommends personalized fitness routines and nutritional plans based on user goals, preferences, and health data
+
+
+ENDORSEMENT LETTER
+February 18, 2025
+
+Jesus Raymond R. Mijares
+Chief Librarian
+Pamantasan ng Lungsod ng Maynila
+General Luna, corner Muralla St, Intramuros, Manila, 1002 Metro Manila
+
+Dear Mr. Mijares,
+
+As part of the curriculum of the College of Information Systems and Technology Management of the Pamantasan ng Lungsod ng Maynila (PLM-CISTM), we are requiring students from the Information Technology Department to undergo 486-hour training for the purpose of developing their skills through actual exposure in their line of specialization and observing how related problems can be solved. This is incorporated into our curriculum because we believe that it will make our graduates responsive to the needs of the industry. Consequently, we are requiring your support and the most relevant exposure for our IT professionals, as well as to ensure the continuity of the supply of highly qualified professionals.
+
+In this regard, I would like to recommend Jonn Ian B. Sabar, a fourth year (4th year) Bachelor of Science in Information Technology (BS IT) student to undergo the immersion in your department starting February 18, 2025.
+
+We trust that this letter will merit your kind consideration and wholehearted support.
+
+Thank you very much.
+
+
+Truly yours,
+
+
+PROF. ARIEL ANTWAUN ROLANDO C. SISON
+Practicum (Immersion) Adviser

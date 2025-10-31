@@ -1,0 +1,144 @@
+I. BACKGROUND OF THE STUDY
+Recent developments in machine learning and artificial intelligence (A.I.) have completely changed a number of industries, including the fitness and health sectors. The creation of algorithms for form assessment in gym settings is a notable use of AI in this field. In order to maximize the advantages of workouts and reduce the risk of injury, a proper form throughout exercises is essential. Conventional techniques for evaluating forms, such trainers' manual observations, may be subjective and susceptible to human interpretation.
+
+Moreover, with the help of AI-Powered Form Assessment for Optimal Gym Workouts offers a solution by leveraging computer vision and sensor technologies to provide objective and real-time feedback on exercise techniques. the system will analyze the form of the user and will be evaluated by the system by comparing the data points against established guidelines.
+
+AI integration in form evaluation improves overall fitness and helps prevent injuries in addition to making gym routines more effective. Therefore, it is crucial to comprehend the design and application of AI-powered form evaluation systems in gym environments in order to advance fitness technology research and practice. This study intends to investigate the state of AI in form evaluation at the moment, analyze its efficacy, and make suggestions for its useful implementation in improving workouts at the gym.
+
+PAYMENT CONSENT FORM
+
+I, Jonn Ian B. Sabar, from BSIT 4th year, block 2, with the Student Number of 2021-04256, completely understand and acknowledge that my participation in the Leadership Training and Seminar on May 17, 2025 from 8:00AM to 5:00PM, would require me to pay to cover the cost of my said participation.  
+
+1. I am fully aware that all graduating students under the College of Information Systems and Technology (CISTM) are required to attend the said event as a part of the college clearance. In doing so, I would voluntarily pay a total of ₱350.00  to cover the cost of my participation. 
+
+My signature below indicates that I have received a copy of this document, and I am willing to pay the said amount. 
+
+Signed on this ___ day of _________, 2025 at Pamantasan ng Lungsod ng Maynila, Intramuros, Manila, Philippines.
+
+ 
+Coordinator’s Signature over printed name
+
+
+
+___________________
+
+Student Signature over printed name
+
+
+
+___________________
+
+Parent’s / Guardian’s Signature over printed name
+
+
+___________________ 
+
+
+ 
+
+
+
+
+
+
+ID OF PARENT (any ID)
+  
+3 SIGNATURES OF PARENT
+ 
+PLM  ID OF STUDENT (Front & Back)
+  
+3 SIGNATURES OF STUDENT
+ 
+
+
+
+using System;
+
+public class HelloWorld{
+    // Method to convert Fahrenheit to Celsius
+    public static void FahrToCel(float num){
+        
+        double formula = (num - 32) * 5 / 9; 
+        float total = (float)formula;
+        
+        Console.WriteLine("Fahrenheit -> Celsius = " + total + " °C");
+    }
+
+    // Method to convert Celsius to Fahrenheit
+    public static void CelToFahr(float num){
+        
+        double formula = (num * 9 / 5) + 32;  
+        float total = (float)formula;
+        
+        Console.WriteLine("Celsius -> Fahrenheit = " + total + " °F");
+    }
+
+    public static void Main(string[] args){
+        // Display options
+        Console.WriteLine("What do you want to convert?");
+        Console.WriteLine("(1) Fahrenheit to Celsius");
+        Console.WriteLine("(2) Celsius to Fahrenheit");
+        Console.WriteLine("Choose what number: ");
+        
+        // Read choice and value
+        int choices = int.Parse(Console.ReadLine()); // Read the choice (1 or 2)
+        
+        Console.WriteLine("Enter the value to convert: ");
+        float val = float.Parse(Console.ReadLine());  
+        
+        // Process the conversion based on user's choice
+        switch (choices)
+        {
+            case 1:
+                FahrToCel(val);  // Convert from Fahrenheit to Celsius
+                break;
+            case 2:
+                CelToFahr(val);  // Convert from Celsius to Fahrenheit
+                break;
+            default:
+                Console.WriteLine("Invalid choice. Please select 1 or 2.");
+                break;
+        }
+    }
+}
+import os
+
+def scan_for_viruses(file_path, virus_signatures):
+    try:
+        with open(file_path, 'r') as file:
+            content = file.read()
+
+        found_signatures = []
+        for signature in virus_signatures:
+            if signature in content:
+                found_signatures.append(signature)
+
+        return found_signatures
+
+    except FileNotFoundError:
+        print(f"File not found: {file_path}")
+        return None
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
+
+if __name__ == "__main__":
+    # List of known virus signatures (examples)
+    virus_signatures = [
+        "malware",
+        "virus",
+        "trojan",
+        "ransomware",
+        "spyware"
+    ]
+
+    # Specify the path to your text file (make sure to include the filename)
+    file_path = r"D:\downloads\test.txt"  # Update with your actual file name
+
+    results = scan_for_viruses(file_path, virus_signatures)
+
+    if results is not None:
+        if results:
+            print("Virus signatures found:", results)
+        else:
+            print("No virus signatures found.")

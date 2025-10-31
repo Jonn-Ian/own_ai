@@ -1,0 +1,21 @@
+my rrs:
+
+1. A Comprehensive Analysis of Demand Prediction Models in Supply Chain Management
+
+2. A New Key Performance Indicator Model for Demand Forecasting in Inventory Management Considering Supply Chain Reliability and Seasonality
+
+3. Predictive Analytics and Machine Learning in Direct Marketing for Anticipating Bank Term Deposit Subscriptions
+
+4. Predictive Analytics for Inventory Optimization
+
+5. Artificial Intelligence-Based Inventory Management: A Monte Carlo Tree Search Approach
+
+6. Effect of Inventory Management on Profitability: Evidence from the Polish Food Industry - Case Study
+
+7. Effect of Inventory Management on Customer Satisfaction in Public Institutions of Higher Learning in Kenya
+
+8. Impact of Inventory Management on Firm’s Efficiency – A Quantitative Research Study on Departmental Stores Operating in Karachi
+
+9. Inventory Management and Customer Satisfaction:
+
+10. Mediation of Inventory Management in the Relationship Between Knowledge and Firm Performance
