@@ -6,7 +6,7 @@ import pickle
 import random
 
 #preparing the paths for searching
-folder_input_path = r"H:\OWN_AI\others\copy\train\inputs"
+folder_input_path = r"E:\Git\my_repos\own_ai\others\copy\train\inputs"
 
 #this is what will gonna find, what extension should be find
 extension = ".txt"
@@ -29,7 +29,7 @@ tokens_id = [words_to_id[word] for word in merged_words]
 #################################################################################
 
 #for opening and reading the pickle file
-file_path = r"H:\OWN_AI\others\copy\train\outputs\dictionary.pkl"
+file_path = r"E:\Git\my_repos\own_ai\others\copy\train\outputs\dictionary.pkl"
 with open(file_path, "rb") as f:
     data = pickle.load(f)
     
@@ -39,20 +39,16 @@ j = 0
 arr = []
 
 while True:
-    me = input("Enter your word 'exit' to quit: ")
-
     random_reply = random.choice(list(data.keys()))
     arr.append(random_reply)
-    j += 1
 
+
+while True:
+    me = input("Enter your word 'exit' to quit: ")
     if me == "exit":
         break
     else:
         print("Core:", arr)
-
-
-
-
 
 
 
