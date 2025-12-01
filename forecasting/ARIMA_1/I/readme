@@ -1,0 +1,38 @@
+# I(d) rules
+
+    only increase the d if the model doesn't stabilized,
+    you only stop when the series becomes stationary — meaning:
+    - The mean is flat (no upward/downward drift).
+    - The variance looks stable.
+    - No obvious trend remains.
+
+# for getting the 2nd d
+
+    you subtract what you got from the diff
+    example:
+
+    ``` python
+
+    # Original series:
+    [10,12,15,19] 
+
+    # First difference (d=1):
+    [12-10,
+     15-12,
+     19-15] = [2,3,4]
+
+    # Second difference (d=2):
+    [3-2,
+     4-3] = [1,1]
+    ```
+
+# how to use the other d?
+
+    in ARIMA(), there's a p, d, and q, ARIMA(p, d, q)
+    if you have multiple d, just choose one, if you have
+    d1, d2, d3, choose one of it and put in arima
+    example:
+
+    ``` python
+    ARIMA(p, d2, q)
+    ```
