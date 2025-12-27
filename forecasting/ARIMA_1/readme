@@ -1,0 +1,4 @@
+how to run the ARIMA.py:
+
+cd E:\Git\my_repos\own_ai\forecasting
+python -m ARIMA_1.ARIMA
