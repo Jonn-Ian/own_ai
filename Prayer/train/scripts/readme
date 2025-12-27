@@ -1,0 +1,91 @@
+# for gpt_3_small.py training scripts
+
+### how to run training steps
+
+Optional Mixed Dataset Config
+If you want to train on multiple sources (e.g., daily_dialog, blended_skill_talk, custom transcripts), you can keep them in separate JSONL files and merge them with weights:
+Example config (YAML or JSON):
+datasets:
+  - path: assets/processed/daily_dialog/train.jsonl
+    weight: 0.5
+  - path: assets/processed/blended_skill_talk/train.jsonl
+    weight: 0.3
+  - path: assets/processed/custom_chat/train.jsonl
+    weight: 0.2
+
+
+# requirements
+
+GPU: - 1× NVIDIA GPU with ≥16 GB VRAM (e.g., RTX 3090, RTX 4090, A6000).
+CPU: - Modern 8‑core CPU (e.g., AMD Ryzen 7, Intel i7/i9).
+RAM: - 32 GB or more recommended for smooth training and data handling.
+Storage: - At least 100 GB of free disk space for datasets, models, and checkpoints.
+
+
+
+# for ericko's setup:
+cfg = {
+  "n_layers": 8,
+  "n_heads": 8,
+  "d_model": 512,
+  "d_ff": 2048,
+  "dropout": 0.0,
+  "max_seq_len": 512,
+  "batch_size": 1,
+  "grad_accum_steps": 64,
+  "lr": 2e-4,
+  "weight_decay": 0.1,
+  "betas": (0.9, 0.95),
+  "warmup_steps": 1000,
+  "total_steps": 100000,
+  "save_every": 2000,
+  "vocab_size": 32000,
+  "use_checkpoint": True,
+  "seed": 42,
+  "log_every": 100,
+  "eval_every": 2000,
+  "clip_grad": 1.0,
+  "use_wandb": False,
+  "amp_dtype": "fp16",     # use fp16; bf16 may not be supported on 3050
+  "use_fsdp": False,
+  "use_deepspeed": False,  # offload needs RAM; you only have 8 GB
+  "use_webdataset": False,
+  # RLHF: disable — too heavy for your hardware
+  "rlhf_enabled": False
+}
+
+
+
+# for collab setup
+
+cfg = {
+    "n_layers": 12,          # smaller than default 24
+    "n_heads": 8,
+    "d_model": 768,
+    "d_ff": 3072,
+    "dropout": 0.1,
+    "max_seq_len": 512,
+    "batch_size": 2,         # keep small
+    "grad_accum_steps": 32,  # accumulate to simulate larger batch
+    "lr": 2e-4,
+    "weight_decay": 0.1,
+    "betas": (0.9, 0.95),
+    "warmup_steps": 1000,
+    "total_steps": 50000,
+    "save_every": 2000,
+    "use_checkpoint": True,
+    "seed": 42,
+    "log_every": 100,
+    "eval_every": 2000,
+    "clip_grad": 1.0,
+    "use_wandb": False,
+    "amp_dtype": "fp16",     # TPU supports mixed precision
+    "use_fsdp": False,
+    "use_deepspeed": False,
+    "use_webdataset": False,
+    "webdataset_url": "",
+    # RLHF disabled (too heavy for TPU free tier)
+    "rlhf_enabled": False
+}
+
+alright, give me the jsonl format with the high quality richness dataset, the dataset format will be 

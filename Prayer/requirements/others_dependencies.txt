@@ -1,0 +1,10 @@
+# Discord bot framework
+discord.py>=2.3.2
+python-dotenv>=1.0.0
+
+# STT/TTS (depending on your stt.py / tts.py implementation)
+openai-whisper>=20231117
+pydub>=0.25.1
+sounddevice>=0.4.6
+vosk>=0.3.45           # speech-to-text engine used in stt.py
+coqui-tts>=0.22.0      # Coqui TTS library providing TTS.api for tts.py

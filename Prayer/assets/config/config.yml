@@ -1,0 +1,52 @@
+# config.yaml
+# Base configuration for GPTSmall training (SFT + optional RLHF)
+
+model:
+  n_layers: 16
+  n_heads: 16
+  d_model: 1024
+  d_ff: 4096
+  dropout: 0.1
+  max_seq_len: 2048
+  vocab_size: 32000
+  use_checkpoint: true
+
+training:
+  batch_size: 2
+  grad_accum_steps: 32
+  lr: 0.0002
+  weight_decay: 0.01
+  betas: [0.9, 0.95]
+  warmup_steps: 2000
+  total_steps: 60000
+  save_every: 2000
+  log_every: 100
+  eval_every: 1000
+  clip_grad: 1.0
+  seed: 42
+  device: "cuda"
+
+logging:
+  use_wandb: false
+  wandb_project: "neurosama-style-train"
+  wandb_run_name: null
+  tensorboard_dir: "assets/weights/tb"
+
+paths:
+  raw_data_dir: "assets/raw"
+  processed_dir: "assets/processed"
+  tokens_dir: "assets/tokens"
+  spm_prefix: "assets/tokens/spm"
+  save_dir: "assets/weights"
+  model_filename: "model.pt"
+  metrics_filename: "metrics.json"
+
+rlhf:
+  enabled: false
+  rm_lr: 0.0001
+  ppo_lr: 0.00001
+  ppo_epochs: 1
+  ppo_batch_size: 2
+  ppo_kl_coef: 0.02
+  ppo_clip: 0.2
+  rm_train_steps: 10000

@@ -1,0 +1,10 @@
+GOALS
+
+1. create a training model:
+    i. create a unique id for unique words and save it to be load
+    ii. create vector for words weight using unique id of words
+    iii. create a self-attention
+    iv. create a dictionary
+
+
+

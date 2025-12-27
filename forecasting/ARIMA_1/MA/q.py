@@ -4,7 +4,5 @@ from .miu import miu
 from .theta import theta
 from .yesterday_error import yesterday_error
 
-# Use the most recent error instead of the whole array
+# Simplified MA forecast component
 q = miu + epsilon[-1] + theta * yesterday_error[-1]
-
-print("q:", q)
